@@ -10,10 +10,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_database
-    image: mysql:5.7
     command: --sql-mode=""
     environment:
       MYSQL_ROOT_PASSWORD: Start1234%
-      MYSQL_DATABASE: mooiedatabase
     ports:
     - "3306:3306"

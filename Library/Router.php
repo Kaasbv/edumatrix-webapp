@@ -22,14 +22,14 @@ class Router {
           $action = "action" . $this->camelcaseify($actionName);
 
           if(!method_exists($controller, $action)){
-            echo "404";
+            throw new Exception("Page not found", 404);
             return;
           }
 
           $controller->{"action" . $this->camelcaseify($actionName)}();
           break;
         }else{
-          echo "404";
+          throw new Exception("Page not found", 404);
           return;
         }
       }

@@ -1,4 +1,4 @@
 <?php
   require "Library/Application.php";
-  new Application();
+  (new Application())->run();
 ?>

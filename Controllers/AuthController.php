@@ -3,7 +3,9 @@ class AuthController extends Controller {
   private $layout = "default";
 
   public function actionIndex(){
-    $this->renderView("Auth/login", ["windowTitle" => "test"]);
+    $user = new Gebruiker("Jemoeder", "test1243%");
+    $user->save();
+    $this->renderView("Auth/login", ["windowTitle" => "aa"]);
   }
 
   public function actionStephan(){
