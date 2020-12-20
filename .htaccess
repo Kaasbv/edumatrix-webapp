@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/(Static)/
+RewriteRule .* index.php [L]
