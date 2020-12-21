@@ -1,10 +1,14 @@
 <?
 class AuthController extends Controller {
-  private $layout = "default";
+  protected $layout = "default";
 
   public function actionIndex(){
-    $user = new Gebruiker("Jemoeder", "test1243%");
-    $user->save();
+    //Pas een model aan
+    $test = Testtable::getOne(["id" => 1]);
+    $test->a = 200;
+    $test->save();
+    $test = DatabaseConnection::select("testtable2", [], ["id" => 1]);
+    //render
     $this->renderView("Auth/login", ["windowTitle" => "aa"]);
   }
 

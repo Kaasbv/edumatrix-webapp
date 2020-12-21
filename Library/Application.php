@@ -13,7 +13,7 @@ class Application {
     });
 
     //Register exception handler
-    set_exception_handler([$this, "exceptionHandler"]);
+    // set_exception_handler([$this, "exceptionHandler"]);
 
     //Connect to database
     $database = new DatabaseConnection();

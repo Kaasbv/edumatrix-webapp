@@ -17,8 +17,37 @@
       }
     }
 
+    public static function select($table, $select = [], $where = []){
+      $preparedValues = $preparedTypes = [];
+      $selectPart = count($select) === 0 ? "*" : implode(",", $select);
+      $query = "SELECT {$selectPart} FROM {$table}";
+
+      
+      //Generate where
+      if(count($where) > 0){
+        $query .= " WHERE ";
+
+        $whereKeys = array_keys($where);
+        for($index = 0; $index < count($whereKeys); $index++){
+          $key = $whereKeys[$index];
+          $value = $where[$key];
+          
+          if($index != 0) $query .= " AND ";
+          $query .= "{$key} = ?";
+  
+          $preparedValues[] = $value;
+          $preparedTypes[] = self::getDataType($value);
+        }
+      }
+      if(count($preparedValues) === 0 && count($preparedTypes) === 0){
+        
+      }else{
+        return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
+      }
+    }
+
     public static function insert($table, $data){
-      $prepatedValues = $preparedTypes = [];
+      $preparedValues = $preparedTypes = [];
 
       $keys = array_keys($data);
       $values = array_values($data);
@@ -27,15 +56,15 @@
 
       //Generate prepared statement
       foreach ($values as $value) {
-        $prepatedValues[] = $value;
+        $preparedValues[] = $value;
         $preparedTypes[] = self::getDataType($value);
       }
 
-      return self::runPreparedQuery($query, $prepatedValues, $preparedTypes);
+      return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
     }
 
     public static function update($table, $data, $where){
-      $prepatedValues = $preparedTypes = [];
+      $preparedValues = $preparedTypes = [];
       $query = "UPDATE {$table} SET ";
 
       //Generate set statements
@@ -47,7 +76,7 @@
         if($index != 0) $query .= ",";
         $query .= "{$key} = ?";
 
-        $prepatedValues[] = $value;
+        $preparedValues[] = $value;
         $preparedTypes[] = self::getDataType($value);
       }
 
@@ -62,11 +91,11 @@
         if($index != 0) $query .= " AND ";
         $query .= "{$key} = ?";
 
-        $prepatedValues[] = $value;
+        $preparedValues[] = $value;
         $preparedTypes[] = self::getDataType($value);
       }
 
-      return self::runPreparedQuery($query, $prepatedValues, $preparedTypes);
+      return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
     }
 
     private static function runPreparedQuery($query, $values, $types){
