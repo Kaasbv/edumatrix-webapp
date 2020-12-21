@@ -11,10 +11,6 @@ class AuthController extends Controller {
     //render
     $this->renderView("Auth/login", ["windowTitle" => "aa"]);
   }
-
-  public function actionStephan(){
-    echo "rl master";
-  }
 }
 
 ?>
