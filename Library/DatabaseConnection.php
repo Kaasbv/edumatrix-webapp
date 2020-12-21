@@ -17,12 +17,88 @@
       }
     }
 
+    public static function insert($table, $data){
+      $prepatedValues = $preparedTypes = [];
+
+      $keys = array_keys($data);
+      $values = array_values($data);
+
+      $query = "INSERT INTO {$table} (" . implode(",", $keys) . ") VALUES (" . implode(",", array_fill(0, count($keys), "?")) . ")";
+
+      //Generate prepared statement
+      foreach ($values as $value) {
+        $prepatedValues[] = $value;
+        $preparedTypes[] = self::getDataType($value);
+      }
+
+      return self::runPreparedQuery($query, $prepatedValues, $preparedTypes);
+    }
+
     public static function update($table, $data, $where){
+      $prepatedValues = $preparedTypes = [];
       $query = "UPDATE {$table} SET ";
 
-      foreach ($data as $key => $value) {
-        $query .= "${$key} = ?";
+      //Generate set statements
+      $dataKeys = array_keys($data);
+      for($index = 0; $index < count($dataKeys); $index++){
+        $key = $dataKeys[$index];
+        $value = $data[$key];
+        
+        if($index != 0) $query .= ",";
+        $query .= "{$key} = ?";
 
+        $prepatedValues[] = $value;
+        $preparedTypes[] = self::getDataType($value);
+      }
+
+      $query .= " WHERE ";
+
+      //Generate where
+      $whereKeys = array_keys($where);
+      for($index = 0; $index < count($whereKeys); $index++){
+        $key = $whereKeys[$index];
+        $value = $where[$key];
+        
+        if($index != 0) $query .= " AND ";
+        $query .= "{$key} = ?";
+
+        $prepatedValues[] = $value;
+        $preparedTypes[] = self::getDataType($value);
+      }
+
+      return self::runPreparedQuery($query, $prepatedValues, $preparedTypes);
+    }
+
+    private static function runPreparedQuery($query, $values, $types){
+      $statement = self::$connection->prepare($query);
+      if(!$statement) throw new Exception("Invalid prepared query entered", 500);
+      
+      $statement->bind_param(implode($types), ...$values);
+      if(!$statement) throw new Exception("Failed to bind params", 500);
+
+      $execution = $statement->execute();
+      if($execution){
+        $result = $statement->get_result();
+        if($result){
+          $response = $result->fetch_all(MYSQLI_ASSOC);
+        }
+      }else{
+        throw new Exception("Query failed!" . $statement->error, 500);
+      }
+
+      $statement->close();
+
+      return $response ?? [];
+    }
+
+    private static function getDataType($var){
+      $type = gettype($var);
+      if(in_array($type, ["boolean", "integer"])){
+        return "i";
+      }else if($type === "double"){
+        return "d";
+      }else if($type === "string"){
+        return "s";
       }
     }
 
