@@ -3,5 +3,3 @@
   <input placeholder="bericht" type="text" name="bericht"><br>
   <input type="submit" value="Submit">
 </form>
-
-<p><?= $context->message ?></p>
