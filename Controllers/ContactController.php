@@ -12,7 +12,7 @@
       //Maak een model aan
       $contactform = new ContactFormulierModel();
       //check input
-      $message = $contactform->checkInput($newnaam, $newbericht);
+      $message = $contactform->getVerifyMessage($newnaam, $newbericht);
       if($message){
         $this->renderView("Contact/error", ["message" => $message]);
         return;

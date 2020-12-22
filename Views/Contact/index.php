@@ -1,6 +1,6 @@
-<form method="post" action="/test/aanpassen">
-  <input type="text" name="naam"><br>
-  <input type="text" name="bericht">
+<form method="post" action="/contact/aanmaken">
+  <input placeholder="naam" type="text" name="naam"><br>
+  <input placeholder="bericht" type="text" name="bericht"><br>
   <input type="submit" value="Submit">
 </form>
 
