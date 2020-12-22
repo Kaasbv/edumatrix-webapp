@@ -1,4 +1,4 @@
-<?
+<?php
   class Controller {
     private $layout = "default";
 

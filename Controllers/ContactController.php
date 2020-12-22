@@ -1,4 +1,4 @@
-<?
+<?php
   class ContactController extends Controller {
     public function actionIndex(){
       $this->renderView("Contact/index");

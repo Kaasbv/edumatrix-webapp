@@ -1,4 +1,4 @@
-<?
+<?php
 class Model {
   public static $_tableName;
   public $_isNew = true;

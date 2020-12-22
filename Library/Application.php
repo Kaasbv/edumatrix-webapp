@@ -1,4 +1,4 @@
-<?
+<?php
 class Application {
   public function run(){
     //Register autoload for library classes

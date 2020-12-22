@@ -1,4 +1,4 @@
-<?
+<?php
 class View {
   public $name;
   public $layout;

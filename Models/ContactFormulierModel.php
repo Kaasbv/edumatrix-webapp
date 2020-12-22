@@ -1,4 +1,4 @@
-<?
+<?php
 class ContactFormulierModel extends Model {
   public static $_tableName = "contactformuliermodel";
 
