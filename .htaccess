@@ -1,3 +1,7 @@
 RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/(Static)/
+
+RewriteCond %{DOCUMENT_ROOT}/Static/$1 -f
+RewriteRule ^(.*)$  /Static/$1  [L,QSA,END]
+
+RewriteCond %{DOCUMENT_ROOT}/Static/$1 !-f
 RewriteRule .* index.php [L]
