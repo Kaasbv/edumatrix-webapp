@@ -19,42 +19,51 @@ class Model {
       $updateObject[$filteredProperty] = $this->$filteredProperty;
     }
 
-    DatabaseConnection::update(static::$_tableName, $updateObject, ["id" => $this->id]);
+    if($this->_isNew){
+      unset($updateObject["id"]);
+      DatabaseConnection::insert(static::$_tableName, $updateObject);
+    }else{
+      DatabaseConnection::update(static::$_tableName, $updateObject, ["id" => $this->id]);
+    }
+  }
+
+  private static function createInstanceFromObject($object){
+    $reflectionClass = new ReflectionClass(get_called_class());
+    $properties = $reflectionClass->getProperties();
+
+    $instance = $reflectionClass->newInstanceWithoutConstructor();
+    foreach ($properties as $property) {
+      if(substr($property->name, 0, 1) !== "_" && isset($object[$property->name])){
+        if($property->isProtected() || $property->isPrivate()){
+          $property->setAccessible(true);
+        }
+
+        $property->setValue($instance, $object[$property->name]);
+      }
+    }
+    
+    
+    $isNewProperty = $reflectionClass->getProperty("_isNew");
+    $isNewProperty->setValue($instance, false);
+
+    return $instance;
+  }
+
+  public static function getAll($where, $limit = false){
+    $items = DatabaseConnection::select(static::$_tableName, [], $where, $limit);
+
+    $response = [];
+    foreach ($items as $item) {      
+      $instance = self::createInstanceFromObject($item);
+      $response[] = $instance;
+    }
+
+    return $response;
   }
 
   public static function getOne($where){
-    [$response] = DatabaseConnection::select(static::$_tableName, [], $where);
-
-    $reflectionClass = new ReflectionClass(get_called_class());
-    $properties = $reflectionClass->getProperties();
-    $propertyNames = [];
-    //get names
-    foreach ($properties as $property) {
-      if(substr($property->name, 0, 1) !== "_"){
-        $propertyNames[] = $property->name;
-      }
-    }
-
-    $instance = $reflectionClass->newInstanceWithoutConstructor();
-
-    //fill object
-    foreach ($response as $key => $value) {
-      $private = false;
-      if(in_array($key, $propertyNames)){
-        $reflectionProperty = $reflectionClass->getProperty($key);
-        if($reflectionProperty->isProtected()){
-          $private = true;
-          $reflectionProperty->setAccessible(true);
-        }
-
-        $reflectionProperty->setValue($instance, $value);
-        if($private){
-          $reflectionProperty->setAccessible(false);
-        }
-      }
-    }
-
-    return $instance;
+    $items = self::getAll($where, 1);
+    return count($items) !== 0 ? $items[0] : false;
   }
 }
 ?>

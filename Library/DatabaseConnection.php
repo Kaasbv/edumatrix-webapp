@@ -17,7 +17,7 @@
       }
     }
 
-    public static function select($table, $select = [], $where = []){
+    public static function select($table, $select = [], $where = [], $limit = false){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
       $query = "SELECT {$selectPart} FROM {$table}";
@@ -39,6 +39,13 @@
           $preparedTypes[] = self::getDataType($value);
         }
       }
+      //Add values
+      if($limit){
+        $query .= " LIMIT ?";
+        $preparedValues[] = $limit;
+        $preparedTypes[] = "i";
+      }
+
       if(count($preparedValues) === 0 && count($preparedTypes) === 0){
         
       }else{

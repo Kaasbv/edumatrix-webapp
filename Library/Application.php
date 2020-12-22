@@ -2,14 +2,17 @@
 class Application {
   public function run(){
     //Register autoload for library classes
-    spl_autoload_register(function ($class_name) {
+    spl_autoload_register(function ($className) {
       $autoDirectories = ["Controllers", "Models", "Library"];
       foreach ($autoDirectories as $dir) {
-        $path = __DIR__ . "/../{$dir}/{$class_name}.php";
+        $path = __DIR__ . "/../{$dir}/{$className}.php";
         if(is_file($path)){
           include $path;
+          return;
         }
       }
+
+      throw new Exception("Can't find class {$className}");
     });
 
     //Register exception handler
