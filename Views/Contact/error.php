@@ -1,0 +1,1 @@
+<p><?= $context->message ?></p>
