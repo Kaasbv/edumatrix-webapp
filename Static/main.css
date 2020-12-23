@@ -1,3 +1,43 @@
 body {
     background-color: gray;
 }
+
+/*************SideNav *************/
+
+#sidenav {
+    height: 100%;
+    width: 180px;
+    position:fixed;
+    z-index:20;
+    top:0;
+    left:0;
+    background-color: #091C66;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+#sidenav a {
+    display: block;
+    text-decoration: none;
+    width: 180px;
+    font-size: 15px;
+    padding: 10px;
+    color: white;
+    left:0;
+
+}
+
+#sidenav a >img{
+    padding-right: 5px;
+    filter: invert(1);
+}
+
+#sidenav a:hover {
+    background-color: #0013D0;
+}
+
+#sidenav a:active{
+    background-color: #4EABE6;
+}
+
+/*************SideNav EXIT*********/
