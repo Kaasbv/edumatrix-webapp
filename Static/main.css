@@ -7,26 +7,26 @@ body {
     overflow: hidden;
     position: sticky;
     height: 50px;
-    display: flex;
+    display: block;
 }
 
 .topnav > a {
     text-decoration: none;
 }
 
-.rightside {
+.right-side {
     position: relative;
-    float: right;
     padding: 5px;
     margin: 5px;
     margin-right: 20px;
+    float: right;
+    display: block;
 }
-
-#userProfile {
+.left-side {
     position: relative;
-    float: right;
-}
-
-#search {
-    float: right;
+    padding: 5px;
+    margin: 5px;
+    margin-right: 20px;
+    float: left;
+    display: block;
 }
