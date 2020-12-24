@@ -41,3 +41,47 @@ body {
 }
 
 /*************SideNav EXIT*********/
+
+
+/*************Main ****************/
+
+main {
+    height: 100%;
+}
+
+
+
+/*************Main EXIT ***********/
+
+
+/*************Footer***************/
+
+footer{
+    height:80px;
+    width: calc(100% - 180px);
+    background-color:#4EABE6;
+    bottom:0;
+    left: 180px;
+    position: relative;
+    opacity: 0.6;
+}
+
+footer > span{
+    position: relative;
+    color: white;
+    height: 0px;
+    width: 100px;
+    display: inline;
+    line-height: 80px;
+}
+
+.version {
+    left: 10%;
+}
+
+.copyright {
+    left: 70%;
+}
+
+/*************Footer EXIT**********/
+
