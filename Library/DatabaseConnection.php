@@ -139,17 +139,27 @@
     }
 
     private static function grabCredentials(){
-      if(!is_file(self::$credentialPath)){
-        throw new Exception("Credential file missing", 500);
-      }
-      $content = file_get_contents(self::$credentialPath);
-      $parsedContent = json_decode($content);
 
-      if($parsedContent === null){
-        throw new Exception("Credential file invalid json", 500);
+      if(isset($_ENV["IS_SERVER"]) && $_ENV["IS_SERVER"] === "true"){
+        return (object)[
+          "databaseUsername" => $_ENV["databaseUsername"],
+          "databasePassword" => $_ENV["databasePassword"],
+          "databaseName" => $_ENV["databaseName"],
+          "databaseHost" => $_ENV["databaseHost"],
+        ];
+      }else{
+        if(!is_file(self::$credentialPath)){
+          throw new Exception("Credential file missing", 500);
+        }
+        $content = file_get_contents(self::$credentialPath);
+        $parsedContent = json_decode($content);
+  
+        if($parsedContent === null){
+          throw new Exception("Credential file invalid json", 500);
+        }
+  
+        return $parsedContent;
       }
-
-      return $parsedContent;
     }
   }
 ?>
