@@ -1,7 +1,7 @@
-<p class = "version">
+<span class = "version">
 Version : 1.0
-</p>
+</span>
 
-<p class = "copyright">
+<span class = "copyright">
 © 2020 Edumatrix All Rights Reserved
-</p>
+</span>

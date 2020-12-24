@@ -10,7 +10,7 @@
   <body>
     <?= $content ?>
     <header><?= $this -> renderSubView("header") ?></header>
-    <aside><?= $this -> renderSubView("sideMenu") ?></aside>
+    <aside><?= $this -> renderSubView("sidemenu") ?></aside>
     <main><?= $this -> renderSubView("main")?></main>
     <footer><?= $this -> renderSubView("footer") ?></footer>
   </body>

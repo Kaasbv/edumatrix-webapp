@@ -66,26 +66,21 @@ footer{
     opacity: 0.6;
 }
 
-.version {
+footer > span{
     position: relative;
-    left: 10%;
     color: white;
-    height: 50px;
+    height: 0px;
     width: 100px;
-    top: 40%;
     display: inline;
+    line-height: 80px;
+}
+
+.version {
+    left: 10%;
 }
 
 .copyright {
-    position:relative;
-    top:40%;
     left: 70%;
-    height: 50px;
-    width: 100px;
-    color: white;
-    display: inline;
-
-
 }
 
 /*************Footer EXIT**********/
