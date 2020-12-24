@@ -4,7 +4,7 @@ phases:
   build:
     commands:
       - mkdir website
-      - cp -r $CODEBUILD_SRC_DIR_website/* website
+      - cp -rT $CODEBUILD_SRC_DIR_website website
 artifacts:
   files:
     - '**/*'
