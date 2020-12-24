@@ -11,5 +11,7 @@
     <?= $content ?>
     <header><?= $this -> renderSubView("header") ?></header>
     <aside><?= $this -> renderSubView("sideMenu") ?></aside>
+    <main><?= $this -> renderSubView("main")?></main>
+    <footer><?= $this -> renderSubView("footer") ?></footer>
   </body>
 </html>

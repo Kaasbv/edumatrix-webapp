@@ -41,3 +41,52 @@ body {
 }
 
 /*************SideNav EXIT*********/
+
+
+/*************Main ****************/
+
+main {
+    height: 100%;
+}
+
+
+
+/*************Main EXIT ***********/
+
+
+/*************Footer***************/
+
+footer{
+    height:80px;
+    width: calc(100% - 180px);
+    background-color:#4EABE6;
+    bottom:0;
+    left: 180px;
+    position: relative;
+    opacity: 0.6;
+}
+
+.version {
+    position: relative;
+    left: 10%;
+    color: white;
+    height: 50px;
+    width: 100px;
+    top: 40%;
+    display: inline;
+}
+
+.copyright {
+    position:relative;
+    top:40%;
+    left: 70%;
+    height: 50px;
+    width: 100px;
+    color: white;
+    display: inline;
+
+
+}
+
+/*************Footer EXIT**********/
+
