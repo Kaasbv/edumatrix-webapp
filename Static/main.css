@@ -2,6 +2,8 @@ body {
     background-color: gray;
 }
 
+/*************Topnav *************/
+
 nav {
     background-color: #091C66;
     overflow: hidden;
@@ -51,3 +53,90 @@ a.left-side {
     height: 60px;
     filter: invert(1);
 }
+
+/*************Topnav EXIT *************/
+
+
+/*************SideNav *************/
+
+#sidenav {
+    height: 100%;
+    width: 180px;
+    position:fixed;
+    z-index:20;
+    top:0;
+    left:0;
+    background-color: #091C66;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+#sidenav a {
+    display: block;
+    text-decoration: none;
+    width: 180px;
+    font-size: 15px;
+    padding: 10px;
+    color: white;
+    left:0;
+
+}
+
+#sidenav a >img{
+    padding-right: 5px;
+    filter: invert(1);
+}
+
+#sidenav a:hover {
+    background-color: #0013D0;
+}
+
+#sidenav a:active{
+    background-color: #4EABE6;
+}
+
+/*************SideNav EXIT*********/
+
+
+/*************Main ****************/
+
+main {
+    height: 100%;
+}
+
+
+
+/*************Main EXIT ***********/
+
+
+/*************Footer***************/
+
+footer{
+    height:80px;
+    width: calc(100% - 180px);
+    background-color:#4EABE6;
+    bottom:0;
+    left: 180px;
+    position: relative;
+    opacity: 0.6;
+}
+
+footer > span{
+    position: relative;
+    color: white;
+    height: 0px;
+    width: 100px;
+    display: inline;
+    line-height: 80px;
+}
+
+.version {
+    left: 10%;
+}
+
+.copyright {
+    left: 70%;
+}
+
+/*************Footer EXIT**********/
+
