@@ -3,15 +3,16 @@ body {
 }
 
 .topnav {
-    background-color: black;
+    background-color: #091C66;
     overflow: hidden;
     position: sticky;
-    height: 50px;
+    height: 70px;
     display: block;
 }
 
 .topnav > a {
     text-decoration: none;
+    color: white;
 }
 
 .right-side {
@@ -21,12 +22,33 @@ body {
     margin-right: 20px;
     float: right;
     display: block;
+    margin-top: 15px;
 }
 .left-side {
     position: relative;
     padding: 5px;
     margin: 5px;
     margin-right: 20px;
+    margin-top: 0px;
     float: left;
     display: block;
+}
+
+#logout {
+    width: 30px;
+    height: 30px;
+    filter: invert(1);
+}
+
+#profile {
+    width: 30px;
+    height: 30px;
+    filter: invert(1);
+}
+
+#edulogo {
+    width: 60px;
+    height: 60px;
+    filter: invert(1);
+
 }

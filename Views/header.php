@@ -1,8 +1,7 @@
-<nav>
+<nav id="topnav">
   <div class="topnav">
-    <a href=#home class="left-side">Edumatrix</a>
-    <a href=# class="left-side">"LOGO"</a>
-    <a href=# class="right-side">Zoeken</a>
-    <a href=# class="right-side">Mijn profiel</a>
+    <a href=#home class="left-side"><img src="/images/edulogo_transparent.png" id="edulogo"></a> 
+    <a href=# class="right-side"><img src="https://icons.getbootstrap.com/icons/power.svg" id="logout"></a>
+    <a href=# class="right-side"><img src="https://icons.getbootstrap.com/icons/person-square.svg" id="profile"> Mijn profiel</a>
   </div>
 </nav>
