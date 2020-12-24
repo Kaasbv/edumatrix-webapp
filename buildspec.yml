@@ -3,12 +3,8 @@ version: 0.2
 phases:
   build:
     commands:
-      - mkdir -p /tmp/output/webapp
-      - mkdir -p /tmp/output/website
-      - cp -r $CODEBUILD_SRC_DIR/* /tmp/output/webapp
-      - cp -r $CODEBUILD_SRC_DIR_website/* /tmp/output/website
-      - mv /tmp/output .
+      - mkdir website
+      - cp -r $CODEBUILD_SRC_DIR_website/* website
 artifacts:
   files:
     - '**/*'
-  base-directory: output

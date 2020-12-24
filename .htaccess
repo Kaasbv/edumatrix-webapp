@@ -1,7 +1,9 @@
 RewriteEngine On
 
 RewriteCond %{DOCUMENT_ROOT}/Static/$1 -f
+RewriteCond $0 !^website/
 RewriteRule ^(.*)$  /Static/$1  [L,QSA,END]
 
 RewriteCond %{DOCUMENT_ROOT}/Static/$1 !-f
+RewriteCond $0 !^website/
 RewriteRule .* index.php [L]
