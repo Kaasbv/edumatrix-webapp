@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/main.css">
   </head>
   <body>
-    <header><?= $this -> renderSubView("header") ?></header>
+    <nav><?= $this -> renderSubView("header") ?></nav>
     <aside><?= $this -> renderSubView("sidemenu") ?></aside>
     <main>
       <div id="content"><?= $content ?></div>

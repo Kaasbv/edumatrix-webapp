@@ -1,16 +1,20 @@
 body {
     background-color: gray;
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
 }
 
+body > * {
+    flex: 0 1 auto;
+}
 /*************Topnav *************/
 
 nav {
     background-color: #091C66;
     overflow: hidden;
-    position: sticky;
+    width: 100%;
     height: 70px;
-    display: block;
     box-shadow: 10px 10px 12px -9px rgba(0,0,0,0.75);
 }
 
@@ -67,10 +71,8 @@ aside {
     z-index:20;
     top:0;
     left:0;
-    position: relative;
     background-color: #091C66;
     overflow: hidden;
-    display: inline-block;
     padding-top: 10px;
     box-shadow: 10px 0px 12px -9px rgba(0,0,0,0.75);
 }
@@ -105,12 +107,9 @@ aside a:active{
 /*************Main ****************/
 
 main {
-    position: relative;
-    display: inline-block;
     height: calc(100% - 70px);
-    overflow: auto;
     width: calc(100% - 185px);
-    vertical-align: top;
+    overflow: auto;
 }
 
 
@@ -120,11 +119,10 @@ main {
 /*************Footer***************/
 
 footer{
+    position: relative;
     height:80px;
     width: 100%;
     background-color:#4EABE6;
-    bottom: 0;
-    position: relative;
     opacity: 0.6;
 }
 
