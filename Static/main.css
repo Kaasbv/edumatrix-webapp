@@ -107,7 +107,7 @@ aside a:active{
 
 main {
     height: calc(100% - 70px);
-    width: calc(100% - 185px);
+    width: calc(100% - 190px);
     overflow: auto;
 }
 
