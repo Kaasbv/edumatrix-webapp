@@ -67,7 +67,7 @@ a.left-side {
 
 aside {
     height: 100%;
-    width: 180px;
+    width: 190px;
     z-index:20;
     top:0;
     left:0;
@@ -80,7 +80,6 @@ aside {
 aside a {
     display: block;
     text-decoration: none;
-    width: 180px;
     font-size: 15px;
     padding: 10px;
     color: white;
