@@ -1,6 +1,6 @@
 <?php
 
-class gebruikersModel extends Models {
+class gebruikersModel extends Model {
     public static $_tableName = "gebruikersModel";
 
      protected int $id;
