@@ -75,7 +75,7 @@ aside {
     padding-top: 10px;
 }
 
-aside a {
+aside a, aside a:hover {
     display: block;
     text-decoration: none;
     font-size: 15px;
