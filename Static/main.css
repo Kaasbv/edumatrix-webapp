@@ -65,7 +65,6 @@ a.left-side {
 /*************SideNav *************/
 
 aside {
-    height: 100%;
     width: 190px;
     z-index: 1;
     top:0;
