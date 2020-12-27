@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="/main.css">
   </head>
   <body>
-    <?= $content ?>
-    <header><?= $this -> renderSubView("header") ?></header>
+    <nav><?= $this -> renderSubView("header") ?></nav>
     <aside><?= $this -> renderSubView("sidemenu") ?></aside>
-    <main><?= $this -> renderSubView("main")?></main>
-    <footer><?= $this -> renderSubView("footer") ?></footer>
+    <main>
+      <div class="contentcontainer">
+        <div id="content"><?= $content ?></div>
+        <footer><?= $this -> renderSubView("footer") ?></footer>
+      </div>
+    </main>
   </body>
 </html>

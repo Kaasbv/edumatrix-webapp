@@ -1,7 +1,7 @@
 <?php
-class SiteController extends Controller{
+class SiteController extends Controller {
   public function actionIndex(){
-    $this->renderView("empty");
+    $this->renderView("main");
   }
 }
 
