@@ -1,10 +1,11 @@
-<?
+<?php
 class KlasModel extends Model {
   public static $_tableName = "klasmodel";
 
-  protected $id;
-  protected $naam;
-  protected $aantalLeerlingen;
-  protected $niveau;
-  protected $leerjaar;
+  protected int $id;
+  protected string $naam;
+  protected int $aantalLeerlingen;
+  protected string $niveau;
+  protected int $leerjaar;
 }
+?>
