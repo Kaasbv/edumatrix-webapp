@@ -1,6 +1,6 @@
 <?php
 class KlasModel extends Model {
-  public static $_tableName = "klasmodel";
+  public static $_tableName = "klasModel";
 
   protected int $id;
   protected string $naam;
