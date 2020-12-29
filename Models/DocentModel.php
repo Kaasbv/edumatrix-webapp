@@ -1,10 +1,15 @@
 <?php
-class KlasModel extends Model {
-  public static $_tableName = "docentModel";
-  public static $_inheritanceColumn = "_GEBRUIKER_ID";
+class DocentModel extends Model {
+    public static $_tableName = "DocentModel";
+    public static $_inheritanceColumn = "_GEBRUIKER_ID";
 
-    protected string $code;
-    protected int $id;
+    protected string $DOCENT_CODE;
+    protected int $ID;
+
+    public function getKlasDocent() {
+        $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->ID]);
+        return $docentKlassen;
+    }
 }
 
 ?>
