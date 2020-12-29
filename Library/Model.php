@@ -33,12 +33,14 @@ class Model {
 
     $instance = $reflectionClass->newInstanceWithoutConstructor();
     foreach ($properties as $property) {
-      if(substr($property->name, 0, 1) !== "_" && isset($object[$property->name])){
+      $propertyName = strtoupper(self::camelToSnake($property->name));
+      // echo $propertyName . "\n";
+      if(substr($property->name, 0, 1) !== "_" && isset($object[$propertyName])){
         if($property->isProtected() || $property->isPrivate()){
           $property->setAccessible(true);
         }
 
-        $property->setValue($instance, $object[$property->name]);
+        $property->setValue($instance, $object[$propertyName]);
       }
     }
     
@@ -65,5 +67,10 @@ class Model {
     $items = self::getAll($where, 1);
     return count($items) !== 0 ? $items[0] : false;
   }
+
+  private static function camelToSnake($input){
+    return strtolower(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input));
+  }
+
 }
 ?>
