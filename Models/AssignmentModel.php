@@ -9,6 +9,12 @@ class AssignmentModel extends Model {
     protected string $BESCHRIJVING;
     protected string $DOCENTOPMERKINGEN;
 
+
+    public function GetCijfers(){
+        CijfersFrom
+
+    }
+
 }
 
 ?>
