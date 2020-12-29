@@ -3,12 +3,12 @@
 class CijferModel extends model {
     public static $_tableName = "CijferModel";
 
-    protected int $ID;
-    protected int $BEOORDELING_ID;
-    protected string $TOETS;
-    protected int $CIJFER;
-    protected string $DATUM_INGEVOERD;
-    protected string $DATUM_TOETS_GEMAAKT;
+    protected int $id;
+    protected int $beoordelingId;
+    protected string $toets;
+    protected int $cijfer;
+    protected string $datumIngevoerd;
+    protected string $datumToetsGemaakt;
 
 }
 
