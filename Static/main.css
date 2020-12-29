@@ -177,3 +177,55 @@ footer > span{
 
 /*************Footer EXIT**********/
 
+/*************Cijfer menu***************/
+
+#cijferMenu {
+    width: 250px;
+    height: 400px;
+    border: 1px solid #091C66;
+    border-radius: 5px;
+    padding: 10px;
+    float: right;
+    margin-right: 50px;
+}
+
+#cijfer {
+    width: 60px;
+}
+
+#opmerkingen {
+    height: 100px;
+    overflow-y: scroll;
+}
+
+input, textarea {
+    border-radius: 2px;
+    border: 1px solid #091C66;
+    margin-bottom: 15px;
+}
+
+input[type=submit] {
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 0px;
+    color: white;
+    background-color: #091C66;
+}
+
+input[type=submit]:hover {
+    opacity: 0.7;
+    
+}
+
+/*Remove Arrows/Spinners in #cijfer*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*Remove Arrows/Spinners in #cijfer*/
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+/*************Cijfer menu EXIT ***************/

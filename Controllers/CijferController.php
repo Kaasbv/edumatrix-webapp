@@ -10,6 +10,10 @@
     public function actionKlassenIndex(){
       $this->renderView("Cijfer/index");
     }
-  }
+  
+    public function actionCijferMenu(){
+      $this->renderView("Cijfer/sidemenu");
+    }
+}
   
 ?>
