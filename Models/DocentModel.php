@@ -1,13 +1,13 @@
 <?php
 class DocentModel extends Model {
     public static $_tableName = "DocentModel";
-    public static $_inheritanceColumn = "_GEBRUIKER_ID";
+    public static $_inheritanceColumn = "GEBRUIKER_ID";
 
-    protected string $DOCENT_CODE;
-    protected int $ID;
+    protected string $docentCode;
+    protected int $id;
 
     public function getKlasDocent() {
-        $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->ID]);
+        $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->id]);
         return $docentKlassen;
     }
 }

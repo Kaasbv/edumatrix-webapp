@@ -2,10 +2,10 @@
 class KlasModel extends Model {
   public static $_tableName = "KlasModel";
 
-  protected int $ID;
-  protected string $KLAS_NAAM;
-  protected int $AANTAL_LEERLINGEN;
-  protected string $NIVEAU;
-  protected int $LEERJAAR;
+  protected int $id;
+  protected string $klasNaam;
+  protected int $aantalLeerlingen;
+  protected string $niveau;
+  protected int $leerjaar;
 }
 ?>
