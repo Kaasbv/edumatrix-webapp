@@ -1,9 +1,9 @@
 <?php
 class KlasModel extends Model {
-  public static $_tableName = "klasModel";
+  public static $_tableName = "KlasModel";
 
   protected int $id;
-  protected string $naam;
+  protected string $klasNaam;
   protected int $aantalLeerlingen;
   protected string $niveau;
   protected int $leerjaar;
