@@ -10,5 +10,31 @@
     <textarea name="opmerkingen" id="opmerkingen"></textarea>
     <br>
     <input type="submit" value="Toepassen">
+
+<?php
+
+  if (isset($_GET["leerlingID"]) === true){
+    echo "leerlingId";
+} 
+
+  else if (isset($_GET["beoordelingId"]) === true){ 
+    echo "beooordelingId";
+}
+
+  else if (isset($_GET["cijferId"]) === true) {
+    echo "cijferId";
+
+}
+
+  else {
+    return "jimmy is lekker";
+}
+
+?>
+
+
   </form>
 </div>
+
+
+
