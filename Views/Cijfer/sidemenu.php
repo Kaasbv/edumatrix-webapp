@@ -13,22 +13,21 @@
 
 <?php
 
-  if (isset($_GET["leerlingID"]) === true){
-    echo "leerlingId";
+  if (isset($_GET["leerlingID"])){ ?>
+    <input type="hidden"  name="leerlingID" value="<?= $_GET["leerlingID"]?>">
+<?php    
 } 
 
-  else if (isset($_GET["beoordelingId"]) === true){ 
-    echo "beooordelingId";
+  if (isset($_GET["beoordelingId"])){  ?>
+    <input type="hidden"  name="beoordelingId" value="<?= $_GET["beoordelingId"]?>">
+<?php    
 }
 
-  else if (isset($_GET["cijferId"]) === true) {
-    echo "cijferId";
-
+  if (isset($_GET["cijferId"])){ ?>
+    <input type="hidden"  name="cijferId" value="<?= $_GET["cijferId"]?>">
+<?php
 }
 
-  else {
-    return "jimmy is lekker";
-}
 
 ?>
 
