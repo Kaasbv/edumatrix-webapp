@@ -151,6 +151,7 @@ main::after {
 /*************Footer***************/
 
 footer{
+    clear: both;
     position: relative;
     height:80px;
     width: 100%;
