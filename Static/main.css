@@ -24,17 +24,17 @@ nav > a {
     padding: 5px;
     margin: 5px;
     margin-right: 20px;
-    position: relative;
-    padding: 5px;
-    margin: 5px;
-    margin-right: 20px;
     display: block;
 }
 
 a.right-side {
     float: right;
-    margin-top: 15px;
+    padding-top: 15px;
+    text-decoration: none;
+    height: 100%;
+    text-align: center;
 }
+
 
 a.left-side {
     margin-top: 0px;
@@ -47,10 +47,32 @@ a.left-side {
     filter: invert(1);
 }
 
+#logout:hover {
+    filter: invert(0.50);
+}
+
+#logout:active{
+    filter:none;
+}
+
 #profile {
     width: 30px;
     height: 30px;
     filter: invert(1);
+}
+
+#profileLink:hover {
+    filter : invert(0.50)
+}
+
+#profileLink:active {
+    color: black;
+    filter: none;
+}
+
+
+#profileLink:active img {
+    filter: none;
 }
 
 #edulogo {
@@ -58,6 +80,8 @@ a.left-side {
     height: 60px;
     filter: invert(1);
 }
+
+
 
 /*************Topnav EXIT *************/
 
