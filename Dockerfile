@@ -1,37 +1,125 @@
-FROM php:7.4-apache
+FROM php:8.0-apache
 
-# Update image
-RUN apt-get update && apt-get install -y
+# Use the default development php.ini configuration
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-# Create and set service user
-ENV APACHE_RUN_USER=apache
-ENV APACHE_RUN_GROUP=apache
-RUN useradd -M -u 1000 apache
+# Setup bare-minimum extra extensions for Laravel & others
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+	&& apt-get install -y --no-install-recommends \
+#	    apt-utils \
+		libmemcached-dev  \
+		libfreetype6-dev \
+		libxml2-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
+		zlib1g-dev \
+		libzip-dev \
+		libz-dev \
+		libpq-dev  \
+		libsqlite3-dev  \
+		libicu-dev \
+		g++ \
+		git \
+		zip \
+		libmcrypt-dev \
+		libvpx-dev \
+		libjpeg-dev \
+		libpng-dev \
+		bzip2 \
+		wget \
+		libexpat1-dev \
+		libbz2-dev \
+		libgmp3-dev \
+		libldap2-dev \
+		unixodbc-dev \
+		libsnmp-dev \
+		libpcre3-dev \
+		libtidy-dev \
+		libaspell-dev \
+		tar \
+		less \
+		nano \
+		libcurl4-gnutls-dev \
+		apt-utils \
+		libxrender1 \
+		unzip \
+		libonig-dev \
+		libldap2-dev \
+		libxslt-dev \
+		libwebp-dev \
+		libc-client-dev \
+		libkrb5-dev \
+		libpspell-dev \
+		librabbitmq-dev \
+		librabbitmq4 \
+    && phpModules=" \
+                bcmath \
+                bz2 \
+                calendar \
+                exif \
+                gd \
+                gettext \
+                gmp \
+                imap \
+                intl \
+                ldap \
+                mysqli \
+                opcache \
+                pcntl \
+                pdo_mysql \
+                pdo_pgsql \
+                pgsql \
+                pspell \
+                shmop \
+                snmp \
+                soap \
+                sockets \
+                sysvmsg \
+                sysvsem \
+                sysvshm \
+                tidy \
+                xsl \
+                zip \
+            " \
+	&& docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
+	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+	&& docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+	&& docker-php-ext-install -j$(nproc) $phpModules \
+	&& pecl install xdebug-3.0.0 \
+	&& pecl install memcached-3.1.5 \
+	&& pecl install redis-5.3.2 \
+	&& pecl install apcu-5.1.19 \
+	&& pecl install igbinary-3.1.6 \
+	&& pecl install mongodb-1.9.0 \
+	&& docker-php-ext-enable xdebug memcached redis apcu igbinary mongodb \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install Xdebug
-RUN curl -fsSL 'https://xdebug.org/files/xdebug-2.7.2.tgz' -o xdebug.tar.gz \
-    && mkdir -p xdebug \
-    && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
-    && rm xdebug.tar.gz \
-    && ( \
-    cd xdebug \
-    && phpize \
-    && ./configure --enable-xdebug \
-    && make -j$(nproc) \
-    && make install \
-    ) \
-    && rm -r xdebug \
-    && docker-php-ext-enable xdebug
+# https://stackoverflow.com/questions/9520914/installing-amqp-through-pecl
+#RUN pecl install amqp-1.6.0 \
+#	&& docker-php-ext-enable amqp \
 
-# COPY php.ini /usr/local/etc/php/php.ini
-RUN echo "[xdebug]" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_autostart=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_host=host.docker.internal" >> /usr/local/etc/php/conf.d/xdebug.ini
+# Copy custom config to PHP config dir.
+COPY custom.ini "$PHP_INI_DIR/conf.d/"
 
-RUN docker-php-ext-install pdo_mysql 
-RUN docker-php-ext-install mysqli
+# Enable Apache mod_rewrite.
+RUN a2enmod rewrite ssl headers proxy proxy_http
 
-RUN a2enmod rewrite && a2enmod headers
+# Create required custom directories
+RUN mkdir -p /var/www/src /etc/apache2/config-from-host
+
+# Include optional Apache configuration from host.
+RUN echo "" >> /etc/apache2/apache2.conf \
+	&& echo "# Include the configurations from the host machine" >> /etc/apache2/apache2.conf \
+	&& echo "IncludeOptional config-from-host/*.conf" >> /etc/apache2/apache2.conf
+
+# Set permissions for Apache user and group
+#RUN chown -R www-data:www-data /var/www/html \
+#	&& chown -R www-data:www-data /var/www/src
+
+# Change uid and gid of apache to docker user uid/gid 
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data
+
+# Set timezone
+RUN ln -sf /usr/share/zoneinfo/Europe/Zagreb /etc/localtime

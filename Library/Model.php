@@ -2,6 +2,13 @@
 class Model {
   public static $_tableName;
   public $_isNew = true;
+  public $_relations = [
+    // [ ***VOORBEELD***
+    //   "primaryKey" => "", //key in onze table standaard id bijvoorbeeld van klas
+    //   "foreignKey" => "modelname_id", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
+    //   "tableName" => "modelnamekoppeltabel" //koppeltabel
+    // ]
+  ];
 
   public function save(){
     $properties = get_object_vars($this);
@@ -52,7 +59,7 @@ class Model {
   }
 
   public static function getAll($where, $limit = false){
-    $items = DatabaseConnection::select(static::$_tableName, [], $where, $limit);
+    $items = DatabaseConnection::select(static::$_tableName, [], $where, $limit, $this->$_relations);
 
     $response = [];
     foreach ($items as $item) {      
