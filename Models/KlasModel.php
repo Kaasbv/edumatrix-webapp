@@ -7,5 +7,10 @@ class KlasModel extends Model {
   protected int $aantalLeerlingen;
   protected string $niveau;
   protected int $leerjaar;
+  protected int $vakId;
+
+  public function getBeoordelingen() {
+    return BeoordelingModel::getAll(["KLAS_ID" => $this->id]);
+  }
 }
 ?>

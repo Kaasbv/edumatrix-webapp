@@ -2,6 +2,14 @@
 class Model {
   public static $_tableName;
   public $_isNew = true;
+  protected static $_joins = [
+    // [ ***VOORBEELD***
+    //   "primaryKey" => "", //key in onze table standaard id bijvoorbeeld van klas
+    //   "foreignKey" => "modelname_id", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
+    //   "tableName" => "modelnamekoppeltabel", //koppeltabel
+    //   "modelName" => "modelname" //evt naam voor koppelen tabel
+    // ]
+  ];
 
   public function save(){
     $properties = get_object_vars($this);
@@ -51,8 +59,33 @@ class Model {
     return $instance;
   }
 
+  public static function generateWhere($where){
+    $reflectionClass = new ReflectionClass(get_called_class());
+    $properties = $reflectionClass->getProperties();
+
+    foreach($where as $key => $value){
+      if(!str_contains($key, ".")){
+        foreach ($properties as $property) {
+          if(self::camelToSnake($property->name) === strtolower($key)){
+            $tableName = static::$_tableName;
+            $where["`{$tableName}`.`{$key}`"] = $value;
+            unset($where[$key]);
+          }
+        }
+      }
+    }
+
+    return $where;
+  }
+
   public static function getAll($where, $limit = false){
-    $items = DatabaseConnection::select(static::$_tableName, [], $where, $limit);
+    $items = DatabaseConnection::select(
+      static::$_tableName,
+      [],
+      static::generateWhere($where),
+      $limit,
+      static::$_joins
+    );
 
     $response = [];
     foreach ($items as $item) {      
@@ -70,6 +103,10 @@ class Model {
 
   private static function camelToSnake($input){
     return strtolower(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input));
+  }
+
+  private static function snakeToCamel($input){
+    return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $input))));
   }
 
 }
