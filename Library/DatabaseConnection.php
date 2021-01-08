@@ -16,13 +16,19 @@
         throw new Exception("Failed to connect to database", 500);
       }
     }
-
-    public static function select($table, $select = [], $where = [], $limit = false){
+    public static function select($table, $select = [], $where = [], $limit = false, $joins = []){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
       $query = "SELECT {$selectPart} FROM {$table}";
-
       
+      //generate joins
+      if(count($joins) > 0){
+        foreach ($joins as $join) {
+          $primaryKey = $join["primaryKey"] ?? "id";
+          $query .= " LEFT JOIN {$join["tableName"]} on `{$table}`.`{$primaryKey}` = `{$join["tableName"]}`.`{$join["foreignKey"]}`";
+        }
+      }
+
       //Generate where
       if(count($where) > 0){
         $query .= " WHERE ";
@@ -39,12 +45,14 @@
           $preparedTypes[] = self::getDataType($value);
         }
       }
+
       //Add values
       if($limit){
         $query .= " LIMIT ?";
         $preparedValues[] = $limit;
         $preparedTypes[] = "i";
       }
+
 
       if(count($preparedValues) === 0 && count($preparedTypes) === 0){
         
