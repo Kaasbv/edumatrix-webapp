@@ -6,8 +6,8 @@ class LeerlingModel extends Model { //TODO: wanneer gebruiker model avaiable is,
 
   protected static $_joins = [
     [
-      "foreignKey" => "LEERLING_ID", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
-      "tableName" => "LeerlingKlas", //koppeltabel
+      "foreignKey" => "LEERLING_ID",
+      "tableName" => "LeerlingKlas",
     ]
   ];
 
