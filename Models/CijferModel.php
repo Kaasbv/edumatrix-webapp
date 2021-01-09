@@ -1,6 +1,6 @@
 <?php
 
-class CijferModel extends model {
+class CijferModel extends Model {
     public static $_tableName = "CijferModel";
 
     public $id;

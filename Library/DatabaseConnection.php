@@ -123,7 +123,7 @@
       if($execution){
         $result = $statement->get_result();
         if($result){
-          $response = $result->fetch_all(MYSQLI_ASSOC);
+          $response = $result->fetch_all(MYSQLI_BOTH);
         }
       }else{
         throw new Exception("Query failed!" . $statement->error, 500);

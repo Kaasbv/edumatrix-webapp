@@ -34,7 +34,9 @@ class Model {
 
     $updateObject = [];
     foreach ($properties as $property) {
-      $updateObject[$property] = $this->$property;
+      if($this->$property != null){
+        $updateObject[self::camelToSnake($property)] = $this->$property;
+      }
     }
 
     unset($updateObject["id"]);
@@ -135,7 +137,7 @@ class Model {
   }
 
   private static function camelToSnake($input){
-    return strtolower(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input));
+    return strtoupper(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input));
   }
 
   private static function snakeToCamel($input){
