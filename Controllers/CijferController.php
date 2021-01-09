@@ -37,8 +37,13 @@
 
     public function actionUpdate(){
       $cijferModel = new CijferModel();
-      $cijferModel->cijfer = 10;
+      $cijferModel->cijfer = $_POST ["cijfer"];
+      $cijferModel->beoordelingId = $_POST ["beoordelingId"];
+      $cijferModel->leerlingId = $_POST ["leerlingId"];
+      $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
+      $cijferModel->datumIngevoerd = $_POST ["datum"];
       $cijferModel->save();
+      var_dump($_POST);
     }
 }
 
