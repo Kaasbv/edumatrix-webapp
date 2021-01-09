@@ -1,22 +1,4 @@
-<style>
-* {
-  box-sizing: border-box;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 500px;
-}
-
-ul li {
-  border: 1px solid #ddd;
-  margin-top: -1px;
-  background-color: #f6f6f6;
-  padding: 12px;
-}
-</style>
 
 <h1>Klassenlijst</h1>
 
