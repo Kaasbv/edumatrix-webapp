@@ -1,5 +1,5 @@
 <div id="cijferMenu">
-  <form action=".php"> <!--aanpassen-->
+  <form method="post" action=".php"> <!--aanpassen-->
     <label for="cijfer">Cijfer:</label><br>
     <input type="number" name="cijfer" id="cijfer" step="0.1" min="0" max="10" >
     <br>

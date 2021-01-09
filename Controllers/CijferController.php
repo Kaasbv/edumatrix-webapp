@@ -4,7 +4,6 @@
       $docent = DocentModel::getOne(["ID" => 1]);
       $klasse = $docent -> getKlasDocent();
       $this->renderView("Cijfer/index");
-
     }
 
     public function actionKlassenIndex(){
@@ -16,10 +15,11 @@
       $cijferBeoordeling = $cijfer -> getcijfers();
     }
 
-
-  
     public function actionCijferMenu(){
       $this->renderView("Cijfer/sidemenu");
+    }
+
+    public function updateCijfer(){
     }
 }
 
