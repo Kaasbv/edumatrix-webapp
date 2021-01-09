@@ -9,7 +9,7 @@ class KlasModel extends Model {
     ]
   ];
 
-  protected int $id;
+  public int $id;
   protected string $klasNaam;
   protected int $aantalLeerlingen;
   protected string $niveau;
@@ -18,6 +18,10 @@ class KlasModel extends Model {
 
   public function getBeoordelingen() {
     return BeoordelingModel::getAll(["KLAS_ID" => $this->id]);
+  }
+
+  public function getLeerlingen() {
+    return LeerlingModel::getAll(["KLAS_ID" => $this->id]);
   }
 }
 ?>

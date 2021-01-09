@@ -10,9 +10,9 @@ class View {
     $this->layout = $layout;
   }
 
-  public function renderSubView($path){
+  public function renderSubView($path, $extracontext = []){
     $view = new View($path);
-    $view->render($this->context);
+    $view->render((object)array_merge((array)$this->context, $extracontext));
   }
 
   public function render($context){
