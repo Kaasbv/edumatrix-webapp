@@ -3,19 +3,19 @@
 class BeoordelingModel extends Model {
     public static $_tableName = "BeoordelingModel";
 
-    protected int $id;
-    protected string $vak;
-    protected string $datum;
-    protected string $beschrijving;
-    protected string $opmerkingenDocent;
+    public int $id;
+    public string $klasId;
+    public string $naam;
+    public string $datum;
+    public string $beschrijving;
+    public string $opmerkingenDocent;
     protected string $type;
 
 
     public function getCijfers(){
-        $CijfersFromBeoordeling = CijferModel::GetAll(["BEOORDELING_ID" => $this->ID]);
+        $CijfersFromBeoordeling = CijferModel::GetAll(["BEOORDELING_ID" => $this->id]);
         return $CijfersFromBeoordeling;
     }
-
 }
 
 ?>

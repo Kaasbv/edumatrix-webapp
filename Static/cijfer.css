@@ -1,0 +1,46 @@
+#tableview {
+  position: relative;
+  float: left;
+}
+#tableView > table {
+  text-align: left;
+  border-collapse: collapse;
+}
+
+#tableView > table > thead > tr {
+  background-color: gray;
+}
+
+#tableView > table > tbody td:not(:first-child) {
+  border: 1px solid black;
+  text-align: center;
+}
+
+#tableView > table > tbody td:not(:first-child):hover {
+  background-color: lightgray;
+}
+
+#tableView > table td.selected{
+  background-color: lightgray;
+}
+
+#tableView > table td.onvoldoende{
+  background-color: red;
+}
+  
+#tableView > table > tbody td:first-child {
+  padding-right: 50px;
+}
+
+
+#tableView > table > tbody > tr {
+  background-color: whitesmoke;
+}
+
+#tableview > table a {
+  display: block;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}

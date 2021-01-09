@@ -3,6 +3,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
+    height: 100%;
 }
 
 body > * {
@@ -167,6 +168,7 @@ main::after {
     min-height: calc(100% - 80px);
     padding-top: 20px;
     padding-left: 20px;
+    overflow: hidden;
 }
 
 /*************Main EXIT ***********/

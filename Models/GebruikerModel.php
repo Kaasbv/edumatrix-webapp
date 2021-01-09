@@ -12,6 +12,14 @@ class GebruikerModel extends Model {
     protected string $relatieRol;
     protected string $lastLoggedIn;
     protected string $pfImgPath; 
+
+    public function getVolledigeNaam(){
+        if(isset($this->tussenvoegsel)){
+            return "{$this->voornaam} {$this->tussenvoegsel} {$this->achternaam}";
+        }else{
+            return "{$this->voornaam} {$this->achternaam}";
+        }
+    }
 }
 
 
