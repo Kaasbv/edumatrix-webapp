@@ -25,7 +25,8 @@
       if(count($joins) > 0){
         foreach ($joins as $join) {
           $primaryKey = $join["primaryKey"] ?? "id";
-          $query .= " LEFT JOIN {$join["tableName"]} on `{$table}`.`{$primaryKey}` = `{$join["tableName"]}`.`{$join["foreignKey"]}`";
+          $primaryTableName = $join["primaryTableName"] ?? $table;
+          $query .= " LEFT JOIN {$join["tableName"]} on `{$primaryTableName}`.`{$primaryKey}` = `{$join["tableName"]}`.`{$join["foreignKey"]}`";
         }
       }
 
@@ -45,14 +46,12 @@
           $preparedTypes[] = self::getDataType($value);
         }
       }
-
       //Add values
       if($limit){
         $query .= " LIMIT ?";
         $preparedValues[] = $limit;
         $preparedTypes[] = "i";
       }
-
 
       if(count($preparedValues) === 0 && count($preparedTypes) === 0){
         

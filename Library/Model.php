@@ -2,51 +2,61 @@
 class Model {
   public static $_tableName;
   public $_isNew = true;
+  public static $_inheritanceColumn;
+  public static $_primaryKey = "id";
+  
   protected static $_joins = [
     // [ ***VOORBEELD***
     //   "primaryKey" => "", //key in onze table standaard id bijvoorbeeld van klas
     //   "foreignKey" => "modelname_id", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
     //   "tableName" => "modelnamekoppeltabel", //koppeltabel
+    //   "primaryTableName" => "modelnametabel", //tabel waarvandaan komt 
     //   "modelName" => "modelname" //evt naam voor koppelen tabel
     // ]
   ];
 
-  public function save(){
-    $properties = get_object_vars($this);
-    $filteredProperties = [];
-    //filter
-    foreach ($properties as $property => $propertyValue) {
-      if(substr($property, 0, 1) !== "_"){
-        $filteredProperties[] = $property;
-      }
+  public function getObjectVarsFromClass(){
+    $className = get_called_class();
+    $reflectionClass = new ReflectionClass($className);
+    $properties = $reflectionClass->getProperties();
+
+    $classProperties = [];
+    foreach ($properties as $property) {
+      if($property->class === $className && substr($property->name, 0, 1) !== "_")
+        $classProperties[] = $property->name;
     }
+
+    return $classProperties;
+  }
+
+  public function save(){
+    $properties = $this->getObjectVarsFromClass();
 
     $updateObject = [];
-
-    foreach ($filteredProperties as $filteredProperty) {
-      $updateObject[$filteredProperty] = $this->$filteredProperty;
+    foreach ($properties as $property) {
+      $updateObject[$property] = $this->$property;
     }
 
+    unset($updateObject["id"]);
     if($this->_isNew){
-      unset($updateObject["id"]);
       DatabaseConnection::insert(static::$_tableName, $updateObject);
     }else{
       DatabaseConnection::update(static::$_tableName, $updateObject, ["id" => $this->id]);
     }
+
+    //TODO: Add parent inheritance saving
   }
 
   private static function createInstanceFromObject($object){
     $reflectionClass = new ReflectionClass(get_called_class());
     $properties = $reflectionClass->getProperties();
-
     $instance = $reflectionClass->newInstanceWithoutConstructor();
+
     foreach ($properties as $property) {
       $propertyName = strtoupper(self::camelToSnake($property->name));
-      // echo $propertyName . "\n";
       if(substr($property->name, 0, 1) !== "_" && isset($object[$propertyName])){
-        if($property->isProtected() || $property->isPrivate()){
+        if($property->isProtected() || $property->isPrivate())
           $property->setAccessible(true);
-        }
 
         $property->setValue($instance, $object[$propertyName]);
       }
@@ -79,12 +89,13 @@ class Model {
   }
 
   public static function getAll($where, $limit = false){
+    
     $items = DatabaseConnection::select(
       static::$_tableName,
       [],
-      static::generateWhere($where),
+      self::generateWhere($where),
       $limit,
-      static::$_joins
+      self::generateJoins()
     );
 
     $response = [];
@@ -94,6 +105,28 @@ class Model {
     }
 
     return $response;
+  }
+
+  public static function generateJoins(){
+    $joins = [];
+    //Add own joins
+    //Add parent joins
+    $className = get_called_class();
+    array_push($joins, ...$className::$_joins);
+    $parentClassName = get_parent_class($className);
+    if($parentClassName && $parentClassName !== "Model"){
+      //Add parent
+      $joins[] = [
+        "foreignKey" => $className::$_primaryKey,
+        "primaryKey" => $className::$_inheritanceColumn,
+        "tableName" => $parentClassName::$_tableName,
+        "primaryTableName" => $className::$_tableName
+      ];
+      //Add recursive own joins
+      array_push($joins, ...$parentClassName::generateJoins());
+    }
+
+    return $joins;
   }
 
   public static function getOne($where){
