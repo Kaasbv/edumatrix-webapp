@@ -23,7 +23,9 @@
     }
 
     public function actionKlassenoverzicht(){
-      $this->renderView("Cijfer/klassenoverzicht");
+      $docent = DocentModel::getOne(["id" => 1]);
+      $klassen = $docent->getKlassen();
+      $this->renderView("Cijfer/klassenoverzicht", ["klassen" => $klassen]);
     }
 }
 

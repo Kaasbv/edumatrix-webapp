@@ -3,13 +3,12 @@
 <div>
   <?php
 
-$klas=array("Klas H1a", "Klas H1c", "Klas H3c", "Klas V4", "Klas V6");
-$arrlength=count($klas);
+    $klassenLength= count($context->klassen);
 
-for($x=0;$x<$arrlength;$x++)
-  {
-  echo "<a href='' class='ul'>" . $klas[$x] ;
-    echo "<br>";
-  }
-?>
+    for($klasIndex = 0; $klasIndex < $klassenLength; $klasIndex++)
+    {
+      echo "<a href='/cijfer/klasoverzicht?klasId=" . $context->klassen[$klasIndex]->id .  "' class='ul'>" . $context->klassen[$x]->klasNaam;
+      echo "<br>";
+    }
+  ?>
 </div>

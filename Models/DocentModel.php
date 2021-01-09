@@ -6,7 +6,7 @@ class DocentModel extends Model {
     protected string $docentCode;
     protected int $id;
 
-    public function getKlasDocent() {
+    public function getKlassen() {
         $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->id]);
         return $docentKlassen;
     }
