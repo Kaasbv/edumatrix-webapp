@@ -21,6 +21,10 @@
     public function actionCijferMenu(){
       $this->renderView("Cijfer/sidemenu");
     }
+
+    public function actionKlassenoverzicht(){
+      $this->renderView("Cijfer/klassenoverzicht");
+    }
 }
 
   
