@@ -3,8 +3,8 @@ class DocentModel extends GebruikerModel {
     public static $_tableName = "DocentModel";
     public static $_inheritanceColumn = "GEBRUIKER_ID";
 
-    public $docentCode;
-    public $id;
+    public string $docentCode;
+    public int $id;
 
     public function getKlassen() {
         $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->id]);
