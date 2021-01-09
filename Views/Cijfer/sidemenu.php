@@ -20,6 +20,9 @@
     <?php if (isset($_GET["cijferId"])){ ?>
         <input type="hidden"  name="cijferId" value="<?= $_GET["cijferId"]?>">
     <?php } ?>
+    <?php if (isset($_GET["klasId"])){ ?>
+        <input type="hidden"  name="klasId" value="<?= $_GET["klasId"]?>">
+    <?php } ?>
     <input type="submit" value="Toepassen">
   </form>
 </div>

@@ -36,14 +36,23 @@
     }
 
     public function actionUpdate(){
-      $cijferModel = new CijferModel();
-      $cijferModel->cijfer = $_POST ["cijfer"];
-      $cijferModel->beoordelingId = $_POST ["beoordelingId"];
-      $cijferModel->leerlingId = $_POST ["leerlingId"];
-      $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
-      $cijferModel->datumIngevoerd = $_POST ["datum"];
-      $cijferModel->save();
-      var_dump($_POST);
+      if(isset($_POST ["beoordelingId"]) && isset($_POST ["leerlingId"])){
+        $cijferModel = new CijferModel();
+        $cijferModel->cijfer = $_POST ["cijfer"];
+        $cijferModel->beoordelingId = $_POST ["beoordelingId"];
+        $cijferModel->leerlingId = $_POST ["leerlingId"];
+        $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
+        $cijferModel->datumToetsGemaakt = $_POST ["datum"];
+        $cijferModel->save();
+      }else if(isset($_POST ["cijferId"])){
+        $cijferModel = CijferModel::getOne(["id" => $_POST["cijferId"]]);
+        $cijferModel->cijfer = $_POST ["cijfer"];
+        $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
+        $cijferModel->datumToetsGemaakt = $_POST ["datum"];
+        $cijferModel->save();
+      }
+
+      $this->redirect("/cijfer/klasoverzicht?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
     }
 }
 
