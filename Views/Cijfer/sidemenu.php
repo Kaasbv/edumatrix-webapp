@@ -9,8 +9,8 @@
     <label for="opmerkingen">Opmerkingen:</label>
     <textarea name="opmerkingen" id="opmerkingen"><?= $context->cijfer->opmerkingDocent ?? "" ?></textarea>
     <br>
-    <?php if (isset($_GET["leerlingID"])){ ?>
-        <input type="hidden"  name="leerlingID" value="<?= $_GET["leerlingID"]?>">
+    <?php if (isset($_GET["leerlingId"])){ ?>
+        <input type="hidden"  name="leerlingId" value="<?= $_GET["leerlingId"]?>">
     <?php } ?>
     
     <?php if (isset($_GET["beoordelingId"])){  ?>
