@@ -7,7 +7,7 @@
 
     for($klasIndex = 0; $klasIndex < $klassenLength; $klasIndex++)
     {
-      echo "<a href='/cijfer/klasoverzicht?klasId=" . $context->klassen[$klasIndex]->id .  "' class='ul'>" . $context->klassen[$x]->klasNaam;
+      echo "<a href='/cijfer/klas?klasId=" . $context->klassen[$klasIndex]->id .  "' class='ul'>" . $context->klassen[$x]->klasNaam;
       echo "<br>";
     }
   ?>

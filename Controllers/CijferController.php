@@ -7,7 +7,7 @@
 
     }
 
-    public function actionKlasOverzicht(){
+    public function actionKlas(){
       if(!isset($_GET["klasId"])){
         throw new Exception("KlasId niet gespecificeerd", 400);
       }
