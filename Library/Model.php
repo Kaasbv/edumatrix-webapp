@@ -35,7 +35,7 @@ class Model {
     $updateObject = [];
     foreach ($properties as $property) {
       if($this->$property != null){
-        $updateObject[self::camelToSnake($property)] = $this->$property;
+        $updateObject[strtoupper(self::camelToSnake($property))] = $this->$property;
       }
     }
 
@@ -78,7 +78,7 @@ class Model {
     foreach($where as $key => $value){
       if(!str_contains($key, ".")){
         foreach ($properties as $property) {
-          if(self::camelToSnake($property->name) === strtolower($key)){
+          if(strtolower(self::camelToSnake($property->name)) === strtolower($key)){
             $tableName = static::$_tableName;
             $where["`{$tableName}`.`{$key}`"] = $value;
             unset($where[$key]);
@@ -137,7 +137,7 @@ class Model {
   }
 
   private static function camelToSnake($input){
-    return strtoupper(preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input));
+    return preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input);
   }
 
   private static function snakeToCamel($input){

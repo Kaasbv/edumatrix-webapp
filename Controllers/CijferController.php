@@ -36,7 +36,9 @@
     }
 
     public function actionUpdate(){
-      echo "Jemoeder";
+      $cijferModel = new CijferModel();
+      $cijferModel->cijfer = 10;
+      $cijferModel->save();
     }
 }
 
