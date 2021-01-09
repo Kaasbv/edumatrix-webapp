@@ -1,5 +1,5 @@
 <div id="cijferMenu">
-  <form method="post" action=".php"> <!--aanpassen-->
+  <form method="post" action="/cijfer/update">
     <label for="cijfer">Cijfer:</label><br>
     <input type="number" name="cijfer" id="cijfer" value="<?= $context->cijfer->cijfer ?? 0 ?>" step="0.1" min="0" max="10" >
     <br>

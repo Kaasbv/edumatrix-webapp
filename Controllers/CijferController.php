@@ -35,7 +35,8 @@
       ]);
     }
 
-    public function updateCijfer(){
+    public function actionUpdate(){
+      echo "Jemoeder";
     }
 }
 
