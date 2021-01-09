@@ -16,13 +16,20 @@
         throw new Exception("Failed to connect to database", 500);
       }
     }
-
-    public static function select($table, $select = [], $where = [], $limit = false){
+    public static function select($table, $select = [], $where = [], $limit = false, $joins = []){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
       $query = "SELECT {$selectPart} FROM {$table}";
-
       
+      //generate joins
+      if(count($joins) > 0){
+        foreach ($joins as $join) {
+          $primaryKey = $join["primaryKey"] ?? "id";
+          $primaryTableName = $join["primaryTableName"] ?? $table;
+          $query .= " LEFT JOIN {$join["tableName"]} on `{$primaryTableName}`.`{$primaryKey}` = `{$join["tableName"]}`.`{$join["foreignKey"]}`";
+        }
+      }
+
       //Generate where
       if(count($where) > 0){
         $query .= " WHERE ";
