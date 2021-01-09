@@ -1,5 +1,3 @@
-
-
 <h1>Klassenlijst</h1>
 
 <div>
@@ -15,10 +13,3 @@ for($x=0;$x<$arrlength;$x++)
   }
 ?>
 </div>
-<ul><h5>
-  <li>Klas H1a</li>
-  <li>Klas H1c</li>
-  <li>Klas H3c</li>
-  <li>Klas V4</li>
-  <li>Klas V6</li>
-</h5></ul>
