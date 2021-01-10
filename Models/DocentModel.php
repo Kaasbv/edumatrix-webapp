@@ -7,8 +7,7 @@ class DocentModel extends GebruikerModel {
     public int $id;
 
     public function getKlassen() {
-        $docentKlassen = KlasModel::getAll(["DOCENT_ID" => $this->id]);
-        return $docentKlassen;
+        return KlasModel::getAll(["DOCENT_ID" => $this->id]);
     }
 }
 

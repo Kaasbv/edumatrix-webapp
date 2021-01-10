@@ -74,7 +74,7 @@
       }
     }
     //Render view
-    $this->renderSubView("Cijfer/sidemenu", ["cijfer" => $cijfer]);
+    $this->renderSubView("Cijfer/cijferdetails", ["cijfer" => $cijfer]);
   }
 ?>
 

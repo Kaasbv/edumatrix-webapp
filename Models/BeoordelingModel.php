@@ -13,8 +13,7 @@ class BeoordelingModel extends Model {
 
 
     public function getCijfers(){
-        $CijfersFromBeoordeling = CijferModel::GetAll(["BEOORDELING_ID" => $this->id]);
-        return $CijfersFromBeoordeling;
+        return CijferModel::GetAll(["BEOORDELING_ID" => $this->id]);
     }
 }
 

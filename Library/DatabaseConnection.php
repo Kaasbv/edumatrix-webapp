@@ -16,6 +16,7 @@
         throw new Exception("Failed to connect to database", 500);
       }
     }
+
     public static function select($table, $select = [], $where = [], $limit = false, $joins = [], $groupBy = false){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
@@ -153,7 +154,6 @@
     }
 
     private static function grabCredentials(){
-
       if(isset($_ENV["IS_SERVER"]) && $_ENV["IS_SERVER"] === "true"){
         return (object)[
           "databaseUsername" => $_ENV["databaseUsername"],

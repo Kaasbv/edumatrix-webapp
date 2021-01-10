@@ -136,10 +136,10 @@ class Model {
 
   public static function generateJoins(){
     $joins = [];
-    //Add own joins
-    //Add parent joins
     $className = get_called_class();
+    //Add own joins
     array_push($joins, ...$className::$_joins);
+    //Add parent joins
     $parentClassName = get_parent_class($className);
     if($parentClassName && $parentClassName !== "Model"){
       //Add parent
@@ -163,10 +163,6 @@ class Model {
 
   private static function camelToSnake($input){
     return preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input);
-  }
-
-  private static function snakeToCamel($input){
-    return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', $input))));
   }
 
 }

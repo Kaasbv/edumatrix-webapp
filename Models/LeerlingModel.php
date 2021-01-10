@@ -11,9 +11,9 @@ class LeerlingModel extends GebruikerModel {
   ];
 
   public int $id;
-  protected string $leerlingnummer;
-  protected string $niveau;
-  protected int $leerjaar;
+  public string $leerlingnummer;
+  public string $niveau;
+  public int $leerjaar;
 }
 
 ?>
