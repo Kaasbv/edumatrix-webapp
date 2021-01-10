@@ -1,7 +1,7 @@
 <?php
 class ScriptController extends Controller {
-  private $voornamen = ["Stephan", "Nassim", "Burak", "Nash", "Auke", "Marijn", "Jimmy", "Johan", "Gert", "Sjaak", "Ashley", "Frank", "Jack", "Shenkie", "Dom", "Rik", "Hans"];
-  private $achternamen = ["Boom", "Wal", "Gitaar", "Kast", "Stronk", "Oof", "Jansen", "Rutte", "Beer", "Boek", "Ster", "Avans", "Steen", "Klok", "Trump", "Jack", "Sleutel", "Beaart"];
+  private $voornamen = ["Stephan", "Nassim", "Burak", "Nash", "Auke", "Marijn", "Jimmy", "Johan", "Gert", "Sjaak", "Ashley", "Frank", "Jack", "Shenkie", "Dom", "Rik", "Hans", "Kenneth", "Aksel"];
+  private $achternamen = ["Boom", "Wal", "Gitaar", "Kast", "Stronk", "Oof", "Jansen", "Beer", "Boek", "Ster", "Avans", "Steen", "Klok", "Jack", "Sleutel"];
   private $tussenvoegsel = ["van de", "de", "van den", false, false];
   private $niveau = ["HAVO", "VWO"];
   private $klasSuffixen = ["a", "b", "c", "d"];
