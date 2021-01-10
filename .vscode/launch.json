@@ -12,7 +12,7 @@
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}"
             },
-            "port": 9000
+            "port": 9003
         },
         {
             "name": "Launch currently open script",
