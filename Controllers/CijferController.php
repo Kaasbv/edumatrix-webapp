@@ -21,7 +21,7 @@
       $leerlingen = $klas->getLeerlingen();
 
       //Render view
-      $this->renderView("Cijfer/index", [
+      $this->renderView("Cijfer/cijferoverzichtklas", [
         "beoordelingen" => $beoordelingen,
         "cijfers" => $cijfers,
         "leerlingen" => $leerlingen,

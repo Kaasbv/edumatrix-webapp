@@ -50,7 +50,7 @@
 
               ?>
             <td class="<?= implode(" ", $classes) ?>">
-              <a href="/cijfer/klasoverzicht?klasId=<?= $context->klasId . $urlSuffix ?>"><?= $cijfer->cijfer ?? "-" ?></a>
+              <a href="/cijfer/klas?klasId=<?= $context->klasId . $urlSuffix ?>"><?= $cijfer->cijfer ?? "-" ?></a>
             </td>
           <?php endforeach ?>
         </tr>
@@ -62,7 +62,7 @@
 <?php 
   //Check of sidemenu zichtbaar moet zijn
   if($selectedCijferId || ($selectedBeoordelingId && $selectedLeerlingId)){//Een van de het variablen zijn actief
-    $cijfer;
+    $cijfer = (object)[];
     //Prepare data if needed
     if($selectedCijferId){
       $cijfers = array_values(array_filter($context->cijfers, function($cijfer){
