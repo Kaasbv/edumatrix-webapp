@@ -46,7 +46,7 @@
         $cijferModel->save();
       }
 
-      $this->redirect("/cijfer/klasoverzicht?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
+      $this->redirect("/cijfer/klas?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
     }
 
     public function actionKlassenoverzicht(){
