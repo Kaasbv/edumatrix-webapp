@@ -8,7 +8,7 @@ class BeoordelingModel extends Model {
     public string $naam;
     public string $datum;
     public string $beschrijving;
-    public string $opmerkingenDocent;
+    public string $opmerkingDocent;
     protected string $type;
 
 

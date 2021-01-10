@@ -94,10 +94,11 @@ class Model {
     
     $items = DatabaseConnection::select(
       static::$_tableName,
-      [],
+      self::generateSelect(),
       self::generateWhere($where),
       $limit,
-      self::generateJoins()
+      self::generateJoins(),
+      "`" . static::$_tableName . "`.`" . static::$_primaryKey ."`" //aaaaaa set groupby to primarykey
     );
 
     $response = [];
@@ -107,6 +108,30 @@ class Model {
     }
 
     return $response;
+  }
+
+  public static function generateSelect(){
+    $map = [];
+    $classes = array_keys(class_parents(get_called_class()));
+    array_unshift($classes, get_called_class());
+
+    foreach(array_reverse($classes) as $class){
+      if(!$class !== "Model"){
+        $reflectionClass = new ReflectionClass($class);
+        $properties = $reflectionClass->getProperties();
+    
+        foreach ($properties as $property) {
+          $propertyName = strtoupper(self::camelToSnake($property->name));
+          if(substr($property->name, 0, 1) !== "_" && $property->class === $class){
+            $map[$propertyName] = $class::$_tableName;
+          }
+        }
+      }
+    }
+    
+    //Change to sql columns
+    array_walk($map, fn(&$table, $column) => $table = "`{$table}`.`{$column}`");
+    return array_values($map);
   }
 
   public static function generateJoins(){

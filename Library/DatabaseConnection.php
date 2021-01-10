@@ -16,7 +16,7 @@
         throw new Exception("Failed to connect to database", 500);
       }
     }
-    public static function select($table, $select = [], $where = [], $limit = false, $joins = []){
+    public static function select($table, $select = [], $where = [], $limit = false, $joins = [], $groupBy = false){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
       $query = "SELECT {$selectPart} FROM {$table}";
@@ -46,12 +46,19 @@
           $preparedTypes[] = self::getDataType($value);
         }
       }
+
+
       //Add values
+      if($groupBy){
+        $query .= " GROUP BY " . $groupBy;
+      }
+
       if($limit){
         $query .= " LIMIT ?";
         $preparedValues[] = $limit;
         $preparedTypes[] = "i";
       }
+
 
       if(count($preparedValues) === 0 && count($preparedTypes) === 0){
         
@@ -123,7 +130,7 @@
       if($execution){
         $result = $statement->get_result();
         if($result){
-          $response = $result->fetch_all(MYSQLI_BOTH);
+          $response = $result->fetch_all(MYSQLI_ASSOC);
         }
       }else{
         throw new Exception("Query failed!" . $statement->error, 500);
