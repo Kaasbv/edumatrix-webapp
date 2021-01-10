@@ -20,6 +20,14 @@ class GebruikerModel extends Model {
             return "{$this->voornaam} {$this->achternaam}";
         }
     }
+
+    public function __construct($voornaam, $tussenvoegsel, $achternaam){
+        $this->voornaam = $voornaam;
+        if(isset($tussenvoegsel)){
+            $this->tussenvoegsel = $tussenvoegsel;
+        }
+        $this->achternaam = $achternaam;
+      }
 }
 
 

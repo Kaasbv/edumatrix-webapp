@@ -82,7 +82,9 @@
         $preparedTypes[] = self::getDataType($value);
       }
 
-      return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
+      self::runPreparedQuery($query, $preparedValues, $preparedTypes);
+
+      return mysqli_insert_id(self::$connection);
     }
 
     public static function update($table, $data, $where){

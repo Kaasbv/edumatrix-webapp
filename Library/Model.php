@@ -34,14 +34,16 @@ class Model {
 
     $updateObject = [];
     foreach ($properties as $property) {
-      if($this->$property != null){
+      if(isset($this->$property)){
         $updateObject[strtoupper(self::camelToSnake($property))] = $this->$property;
       }
     }
 
     unset($updateObject["id"]);
     if($this->_isNew){
-      DatabaseConnection::insert(static::$_tableName, $updateObject);
+      $insertId = DatabaseConnection::insert(static::$_tableName, $updateObject);
+      $this->{static::$_primaryKey} = $insertId;
+      return $insertId;
     }else{
       DatabaseConnection::update(static::$_tableName, $updateObject, ["id" => $this->id]);
     }

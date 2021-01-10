@@ -11,9 +11,18 @@ class KlasModel extends Model {
     
   public int $id;
   public string $klasNaam;
+  public string $docentId;
   public string $niveau;
   public int $leerjaar;
   public int $vakId;
+
+  public function __construct($klasNaam, $docentId, $vakId, $leerjaar, $niveau){
+    $this->klasNaam = $klasNaam;
+    $this->docentId = $docentId;
+    $this->vakId = $vakId;
+    $this->leerjaar = $leerjaar;
+    $this->niveau = $niveau;
+  }
 
   public function getBeoordelingen() {
     return BeoordelingModel::getAll(["KLAS_ID" => $this->id]);

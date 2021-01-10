@@ -10,6 +10,12 @@ class CijferModel extends Model {
     public $cijfer;
     public $datumIngevoerd;
     public $datumToetsGemaakt;
+
+    function __construct($leerlingId, $beoordelingId, $cijfer){
+        $this->leerlingId = $leerlingId;
+        $this->beoordelingId = $beoordelingId;
+        $this->cijfer = $cijfer;
+    }
 }
 
 ?>

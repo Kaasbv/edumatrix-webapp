@@ -31,10 +31,7 @@
 
     public function actionUpdate(){
       if(isset($_POST ["beoordelingId"]) && isset($_POST ["leerlingId"])){
-        $cijferModel = new CijferModel();
-        $cijferModel->cijfer = $_POST ["cijfer"];
-        $cijferModel->beoordelingId = $_POST ["beoordelingId"];
-        $cijferModel->leerlingId = $_POST ["leerlingId"];
+        $cijferModel = new CijferModel($_POST ["leerlingId"], $_POST ["beoordelingId"], $_POST ["cijfer"]);
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
         $cijferModel->datumToetsGemaakt = $_POST ["datum"];
         $cijferModel->save();

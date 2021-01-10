@@ -6,6 +6,11 @@ class DocentModel extends GebruikerModel {
     public string $docentCode;
     public int $id;
 
+    function __construct($docentCode)
+    {
+        $this->docentCode = $docentCode;
+    }
+
     public function getKlassen() {
         return KlasModel::getAll(["DOCENT_ID" => $this->id]);
     }
