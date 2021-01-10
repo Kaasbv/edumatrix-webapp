@@ -5,8 +5,14 @@ class Router {
   public function execute(){
     $requestPath = $_SERVER["REQUEST_URI"];
     if($requestPath === "/") $requestPath = "/site";
-
+    
+    $questionMarkPos = strpos($requestPath, "?");
+    if($questionMarkPos !== false){
+      $requestPath = substr($requestPath, 0, $questionMarkPos);
+    }
     $pathArray = explode("/", rtrim($requestPath, '/'));
+    
+
     $path = $this->controllerDirectory;
     foreach ($pathArray as $index => $part) {
       $newPath = $path . $part . "/";

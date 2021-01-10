@@ -1,12 +1,27 @@
 <?php
-class LeerlingModel extends Model { //TODO: wanneer gebruiker model avaiable is, die extenden
-  public static $_tableName = "leerlingModel";
-  public static $_inheritanceColumn = "_GEBRUIKER_ID";
-  public static $_primaryKey = "nummer";
+class LeerlingModel extends GebruikerModel {
+  public static $_tableName = "LeerlingModel";
+  public static $_inheritanceColumn = "GEBRUIKER_ID";
 
-  protected string $nummer;
-  protected string $niveau;
-  protected int $leerjaar
+  protected static $_joins = [
+    [
+      "foreignKey" => "LEERLING_ID",
+      "tableName" => "LeerlingKlas",
+    ]
+  ];
+
+  public int $id;
+  public string $leerlingnummer;
+  public int $gebruikerId;
+  public string $niveau;
+  public int $leerjaar;
+
+  public function __construct($leerlingnummer, $gebruikerId, $niveau, $leerjaar){
+    $this->leerlingnummer = $leerlingnummer;
+    $this->gebruikerId = $gebruikerId;
+    $this->niveau = $niveau;
+    $this->leerjaar = $leerjaar;
+  }
 }
 
 ?>

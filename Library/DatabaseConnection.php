@@ -17,12 +17,20 @@
       }
     }
 
-    public static function select($table, $select = [], $where = [], $limit = false){
+    public static function select($table, $select = [], $where = [], $limit = false, $joins = [], $groupBy = false){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);
       $query = "SELECT {$selectPart} FROM {$table}";
-
       
+      //generate joins
+      if(count($joins) > 0){
+        foreach ($joins as $join) {
+          $primaryKey = $join["primaryKey"] ?? "id";
+          $primaryTableName = $join["primaryTableName"] ?? $table;
+          $query .= " LEFT JOIN {$join["tableName"]} on `{$primaryTableName}`.`{$primaryKey}` = `{$join["tableName"]}`.`{$join["foreignKey"]}`";
+        }
+      }
+
       //Generate where
       if(count($where) > 0){
         $query .= " WHERE ";
@@ -39,12 +47,19 @@
           $preparedTypes[] = self::getDataType($value);
         }
       }
+
+
       //Add values
+      if($groupBy){
+        $query .= " GROUP BY " . $groupBy;
+      }
+
       if($limit){
         $query .= " LIMIT ?";
         $preparedValues[] = $limit;
         $preparedTypes[] = "i";
       }
+
 
       if(count($preparedValues) === 0 && count($preparedTypes) === 0){
         
@@ -67,7 +82,9 @@
         $preparedTypes[] = self::getDataType($value);
       }
 
-      return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
+      self::runPreparedQuery($query, $preparedValues, $preparedTypes);
+
+      return mysqli_insert_id(self::$connection);
     }
 
     public static function update($table, $data, $where){
@@ -139,7 +156,6 @@
     }
 
     private static function grabCredentials(){
-
       if(isset($_ENV["IS_SERVER"]) && $_ENV["IS_SERVER"] === "true"){
         return (object)[
           "databaseUsername" => $_ENV["databaseUsername"],

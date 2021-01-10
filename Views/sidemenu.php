@@ -1,5 +1,5 @@
-<a href="#"><img src="/Pictures/bootstrapIcons/grid.svg"> Dashboard</a>
-<a href="#"><img src="/Pictures/bootstrapIcons/calendar-date.svg"> Agenda</a>
-<a href="#"><img src="/Pictures/bootstrapIcons/check2-square.svg">Cijfers</a>
-<a href="#"><img src="/Pictures/bootstrapIcons/file-earmark-plus.svg">Toetsen/assessments</a>
-<a href="#"><img src="/Pictures/bootstrapIcons/journals.svg">Administratie</a>
+<a href="/"><img src="https://icons.getbootstrap.com/icons/grid.svg"> Dashboard</a>
+<a href="/site/wip"><img src="https://icons.getbootstrap.com/icons/calendar-date.svg"> Agenda</a>
+<a href="/cijfer/klassenoverzicht"><img src="https://icons.getbootstrap.com/icons/check2-square.svg">Cijfers</a>
+<a href="/site/wip"><img src="https://icons.getbootstrap.com/icons/file-earmark-plus.svg">Toetsen/assessments</a>
+<a href="/site/wip"><img src="https://icons.getbootstrap.com/icons/journals.svg">Administratie</a>
