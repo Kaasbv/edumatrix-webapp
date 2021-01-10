@@ -31,5 +31,9 @@ class KlasModel extends Model {
   public function getLeerlingen() {
     return LeerlingModel::getAll(["KLAS_ID" => $this->id]);
   }
+
+  public function getCijfers() {
+    return CijferModel::GetAll(["KLAS_ID" => $this->id]);
+  }
 }
 ?>

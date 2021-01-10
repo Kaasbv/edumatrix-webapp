@@ -14,10 +14,7 @@
 
       //Verkrijg alle benodigde data
       $beoordelingen = $klas->getBeoordelingen();
-      $cijfers = [];
-      foreach ($beoordelingen as $beoordeling) {
-        array_push($cijfers, ...$beoordeling->getCijfers());
-      }
+      $cijfers = $klas->getCijfers();
       $leerlingen = $klas->getLeerlingen();
 
       //Render view

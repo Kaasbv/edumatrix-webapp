@@ -3,6 +3,20 @@
 class CijferModel extends Model {
     public static $_tableName = "CijferModel";
 
+    protected static $_joins = [
+        [
+            "primaryKey" => "BEOORDELING_ID",
+            "foreignKey" => "ID",
+            "tableName" => "BeoordelingModel",
+        ],
+        [
+          "primaryKey" => "KLAS_ID",
+          "primaryTableName" => "BeoordelingModel",
+          "foreignKey" => "ID",
+          "tableName" => "KlasModel",
+        ]
+    ];
+
     public $id;
     public $leerlingId;
     public $beoordelingId;
