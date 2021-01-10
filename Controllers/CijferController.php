@@ -1,12 +1,6 @@
 <?php
   class CijferController extends Controller{
-    public function actionIndex(){
-      $docent = DocentModel::getOne(["ID" => 1]);
-      $klasse = $docent -> getKlasDocent();
-      $this->renderView("Cijfer/index");
-    }
-
-    public function actionKlasOverzicht(){
+    public function actionKlas(){
       if(!isset($_GET["klasId"])){
         throw new Exception("KlasId niet gespecificeerd", 400);
       }
@@ -53,6 +47,12 @@
       }
 
       $this->redirect("/cijfer/klasoverzicht?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
+    }
+
+    public function actionKlassenoverzicht(){
+      $docent = DocentModel::getOne(["id" => 1]);
+      $klassen = $docent->getKlassen();
+      $this->renderView("Cijfer/klassenoverzicht", ["klassen" => $klassen]);
     }
 }
 

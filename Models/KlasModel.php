@@ -8,9 +8,9 @@ class KlasModel extends Model {
       "tableName" => "LeerlingKlas",
     ]
   ];
-
+    
   public int $id;
-  protected string $klasNaam;
+  public string $klasNaam;
   protected int $aantalLeerlingen;
   protected string $niveau;
   protected int $leerjaar;
