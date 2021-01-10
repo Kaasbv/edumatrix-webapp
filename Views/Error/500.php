@@ -1,1 +1,2 @@
-<h1><?= $context->message ?></h1>
+<h1>Internal server error</h1>
+<p><?= $context->message ?></p>

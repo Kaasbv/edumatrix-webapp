@@ -50,7 +50,9 @@
 
               ?>
             <td class="<?= implode(" ", $classes) ?>">
-              <a href="/cijfer/klas?klasId=<?= $context->klasId . $urlSuffix ?>"><?= isset($cijfer->cijfer) ? $cijfer->cijfer + 0 : "-" ?></a>
+              <a href="/cijfer/klas?klasId=<?= $context->klasId . $urlSuffix ?>">
+                <?= isset($cijfer->cijfer) ? $cijfer->cijfer + 0 : "-" ?>
+              </a>
             </td>
           <?php endforeach ?>
         </tr>
