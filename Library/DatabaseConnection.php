@@ -37,11 +37,20 @@
 
         $whereKeys = array_keys($where);
         for($index = 0; $index < count($whereKeys); $index++){
-          $key = $whereKeys[$index];
-          $value = $where[$key];
+          $whereKey = $whereKeys[$index];
+          $whereValue = $where[$whereKey];
+
+          if(gettype($whereValue) !== "array"){
+            $key = $whereKey;
+            $operator = "=";
+            $value = $whereValue;
+          }else{
+            if(count($whereValue) < 2) throw new Exception("Where array item bevat minder dan 3 items, moet [key, operator, value]");
+            [$key, $operator, $value] = $whereValue;
+          }
           
           if($index != 0) $query .= " AND ";
-          $query .= "{$key} = ?";
+          $query .= "{$key} {$operator} ?";
   
           $preparedValues[] = $value;
           $preparedTypes[] = self::getDataType($value);

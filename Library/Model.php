@@ -77,13 +77,24 @@ class Model {
     $reflectionClass = new ReflectionClass(get_called_class());
     $properties = $reflectionClass->getProperties();
 
-    foreach($where as $key => $value){
-      if(!str_contains($key, ".")){
-        foreach ($properties as $property) {
+    foreach($where as $whereKey => $whereValue){
+      foreach ($properties as $property) {
+        if(gettype($whereValue) !== "array"){
+          $key = $whereKey;
+          $value = $whereValue;
+        }else{
+          [$key,, $value] = $whereValue;
+        }
+
+        if(!str_contains($key, ".")){
           if(strtolower(self::camelToSnake($property->name)) === strtolower($key)){
             $tableName = static::$_tableName;
-            $where["`{$tableName}`.`{$key}`"] = $value;
-            unset($where[$key]);
+            if(gettype($whereValue) !== "array"){
+              $where["`{$tableName}`.`{$key}`"] = $value;
+              unset($where[$key]);
+            }else{
+              $where[$whereKey][0] = "`{$tableName}`.`{$key}`";
+            }
           }
         }
       }
