@@ -124,7 +124,9 @@
 
     private static function runPreparedQuery($query, $values, $types){
       $statement = self::$connection->prepare($query);
-      if(!$statement) throw new Exception("Invalid prepared query entered", 500);
+      if(!$statement) {
+        throw new Exception(self::$connection->error, 500);
+      }
       
       $statement->bind_param(implode($types), ...$values);
       if(!$statement) throw new Exception("Failed to bind params", 500);
