@@ -28,7 +28,25 @@ class GebruikerModel extends Model {
         }
         $this->achternaam = $achternaam;
       }
+
+
+    //password hash + salt
+    public function changePassword($password){
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->save();
+    }
+
+    //password verifiëren
+    public function checkPassword($password){
+        $hash = $this->password;
+        if (password_verify($password, $hash)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
 
 
 ?>
