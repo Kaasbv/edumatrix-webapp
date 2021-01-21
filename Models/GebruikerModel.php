@@ -3,8 +3,8 @@
 class GebruikerModel extends Model {
     public static $_tableName = "GebruikerModel";
     protected int $id;
-    protected string $email;
-    protected string $voornaam;
+    public string $email;
+    public string $voornaam;
     protected string $tussenvoegsel;
     protected string $achternaam;
     protected string $geboortedatum; 
@@ -45,8 +45,20 @@ class GebruikerModel extends Model {
             return false;
         }
     }
+
+
+    public static function login($email, $password){
+        $user = GebruikerModel::getOne(["email" => $email]);
+        if(!isset($user)){ 
+            return false;
+        }
+        if ($user->checkPassword($password)){
+            //Session::saveUserId($user->id);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
-
-
-
 ?>
