@@ -160,7 +160,7 @@ class Model {
 
   public static function getOne($where){
     $items = self::getAll($where, 1);
-    return count($items) !== 0 ? $items[0] : false;
+    return count($items) !== 0 ? $items[0] : null;
   }
 
   private static function camelToSnake($input){
