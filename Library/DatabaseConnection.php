@@ -37,11 +37,20 @@
 
         $whereKeys = array_keys($where);
         for($index = 0; $index < count($whereKeys); $index++){
-          $key = $whereKeys[$index];
-          $value = $where[$key];
+          $whereKey = $whereKeys[$index];
+          $whereValue = $where[$whereKey];
+
+          if(gettype($whereValue) !== "array"){
+            $key = $whereKey;
+            $operator = "=";
+            $value = $whereValue;
+          }else{
+            if(count($whereValue) < 2) throw new Exception("Where array item bevat minder dan 3 items, moet [key, operator, value]");
+            [$key, $operator, $value] = $whereValue;
+          }
           
           if($index != 0) $query .= " AND ";
-          $query .= "{$key} = ?";
+          $query .= "{$key} {$operator} ?";
   
           $preparedValues[] = $value;
           $preparedTypes[] = self::getDataType($value);
@@ -124,7 +133,9 @@
 
     private static function runPreparedQuery($query, $values, $types){
       $statement = self::$connection->prepare($query);
-      if(!$statement) throw new Exception("Invalid prepared query entered", 500);
+      if(!$statement) {
+        throw new Exception(self::$connection->error, 500);
+      }
       
       $statement->bind_param(implode($types), ...$values);
       if(!$statement) throw new Exception("Failed to bind params", 500);

@@ -46,6 +46,7 @@ class GebruikerModel extends Model {
         }
     }
 
+
     public static function login($email, $password){
         $user = GebruikerModel::getOne(["email" => $email]);
         if(!isset($user)){ 
@@ -60,7 +61,4 @@ class GebruikerModel extends Model {
         }
     }
 }
-
-
-
 ?>

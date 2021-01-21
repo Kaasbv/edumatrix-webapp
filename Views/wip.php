@@ -1,4 +1,4 @@
-<h2>Coming soon<span id="dots"></span><h2>
+<h2>Coming soon<span id="dots"></span></h2>
 <script>
   var currentDots = 0;
   var maxDots = 3;

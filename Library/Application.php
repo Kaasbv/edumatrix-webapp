@@ -16,7 +16,7 @@ class Application {
     });
 
     //Register exception handler
-    // set_exception_handler([$this, "exceptionHandler"]);
+    set_exception_handler([$this, "exceptionHandler"]);
 
     //Connect to database
     $database = new DatabaseConnection();
@@ -29,15 +29,14 @@ class Application {
   public function exceptionHandler($exception){
     $code = $exception->getCode() ? $exception->getCode() : 500;
     $message = $exception->getMessage() ?? "Internal Server error";
+    $messageWithLocation = "<b>{$message}</b> on {$exception->getFile()}:{$exception->getLine()}"; 
 
     ob_clean();
     http_response_code($code);
-    echo http_response_code();
     
     //render view
-    $view = new View("Error/" . ($code === 500 || $code === 404 ? $code : 500));
-    $view->render(["message" => $message]);
-
+    $view = new View("Error/" . ($code === 500 || $code === 404 ? $code : 500), "default");
+    $view->render(["message" => $messageWithLocation, "trace" => $exception->getTraceAsString()]);
     exit;
   }
 
