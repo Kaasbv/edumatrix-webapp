@@ -15,9 +15,8 @@ class Model {
     // ]
   ];
 
-  public function getObjectVarsFromClass(){
-    $className = get_called_class();
-    $reflectionClass = new ReflectionClass($className);
+  public function getObjectVarsFromClass($className){
+    $reflectionClass = new ReflectionClass(get_called_class());
     $properties = $reflectionClass->getProperties();
 
     $classProperties = [];
@@ -30,7 +29,22 @@ class Model {
   }
 
   public function save(){
-    $properties = $this->getObjectVarsFromClass();
+    $classes = [get_called_class(), ...array_values(class_parents(get_called_class()))];
+    //Remove Model parent
+    array_pop($classes);
+    //Save per class
+    foreach ($classes as $key => $className) {
+      if($key === 0){
+        $this->saveClass($className);
+      }else{        
+        $primaryKeyValue = $this->{self::snakeToCamel($classes[$key - 1]::$_inheritanceColumn)};
+        $this->saveClass($className, $primaryKeyValue);
+      }
+    }
+  }
+
+  public function saveClass($className, $primaryKeyValue = false){
+    $properties = $this->getObjectVarsFromClass($className);
 
     $updateObject = [];
     foreach ($properties as $property) {
@@ -39,16 +53,14 @@ class Model {
       }
     }
 
-    unset($updateObject["id"]);
+    unset($updateObject[strtoupper($className::$_primaryKey)]);
     if($this->_isNew){
-      $insertId = DatabaseConnection::insert(static::$_tableName, $updateObject);
+      $insertId = DatabaseConnection::insert($className::$_tableName, $updateObject);
       $this->{static::$_primaryKey} = $insertId;
       return $insertId;
     }else{
-      DatabaseConnection::update(static::$_tableName, $updateObject, ["id" => $this->id]);
+      DatabaseConnection::update($className::$_tableName, $updateObject, [$className::$_primaryKey => $primaryKeyValue ? $primaryKeyValue : $this->id]);
     }
-
-    //TODO: Add parent inheritance saving
   }
 
   private static function createInstanceFromObject($object){
@@ -169,17 +181,19 @@ class Model {
     return $joins;
   }
 
-  public static function getOne($where){
+  public static function getOne($where = []){
     $items = self::getAll($where, 1);
-    return count($items) !== 0 ? $items[0] : false;
+    return count($items) !== 0 ? $items[0] : null;
   }
 
   private static function camelToSnake($input){
     return preg_replace(['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'], '$1_$2', $input);
   }
 
+  private static function snakeToCamel($input){
+    return lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ',strtolower($input)))));
+  }
 }
-
 //backwards compatability
 if(!function_exists("str_contains")){
   function str_contains($haystack, $needle){
