@@ -1,2 +1,2 @@
 # edumatrix-webapp
-Avans school project (test)
+Avans school project
