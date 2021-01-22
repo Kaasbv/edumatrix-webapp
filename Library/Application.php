@@ -21,6 +21,10 @@ class Application {
     //Connect to database
     $database = new DatabaseConnection();
     $database->startConnection();
+
+    //Start session
+    Session::init();
+
     //start routing
     ob_start();
     (new Router())->execute();

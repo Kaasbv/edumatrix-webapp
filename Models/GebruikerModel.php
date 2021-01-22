@@ -9,7 +9,7 @@ class GebruikerModel extends Model {
     protected string $achternaam;
     protected string $geboortedatum; 
     protected string $password;
-    protected string $relatieRol;
+    public string $relatieRol;
     protected string $lastLoggedIn;
     protected string $pfImgPath; 
 
@@ -53,7 +53,7 @@ class GebruikerModel extends Model {
             return false;
         }
         if ($user->checkPassword($password)){
-            //Session::saveUserId($user->id);
+            Session::saveUserId($user->id);
             return true;
         }
         else{
