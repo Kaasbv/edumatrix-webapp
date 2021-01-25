@@ -1,0 +1,21 @@
+body{   
+    background: #95cdf0;
+    font-family: 'Yusei Magic', sans-serif;  
+}  
+#frm{  
+    border: solid gray 1px;  
+    width:25%;  
+    border-radius: 2px;  
+    margin: 120px auto;  
+    background: white;  
+    padding: 50px;
+    text-align: end;
+    font-family: 'Yusei Magic', sans-serif;;  
+}  
+#btn{  
+    color: #fff;  
+    background: #091c66;  
+    padding: 7px;  
+    margin-left: 70%;
+    font-family: 'Yusei Magic', sans-serif;  
+}  
