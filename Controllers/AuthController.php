@@ -9,14 +9,15 @@
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
         $session = GebruikerModel::login($username, $password);
+
+        if($session) {
+          $this->redirect("/");
+        } else {
+          $this->renderView("Auth/placeholder_login", ["error" => "Wollah dit is geen bestaande user"]);
+        }
       } else {
-        $this->renderView("Auth/placeholder_login", ["error" => "Waar is die POST ahhhh zehmer?"]);
-        } if($session) {
-          echo "OMFG IK BEN INGELOGD!!!";
-          //$this->redirect("/dashboard");
-          } else {
-            $this->renderView("Auth/placeholder_login", ["error" => "Wollah dit is geen bestaande user"]);
-          }
+        $this->renderView("Auth/placeholder_login", ["error" => ""]);
+      }
     }
 
     public function actionLogout(){
