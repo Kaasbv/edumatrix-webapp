@@ -5,8 +5,19 @@
     }
 
     public function actionLogin(){
-      //LVS-113 Hoi nassim
-      $this->renderView("Auth/placeholder_login", ["error" => "poep"]);
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+        $session = GebruikerModel::login($username, $password);
+
+        if($session) {
+          $this->redirect("/");
+        } else {
+          $this->renderView("Auth/placeholder_login", ["error" => "Wollah dit is geen bestaande user"]);
+        }
+      } else {
+        $this->renderView("Auth/placeholder_login", ["error" => ""]);
+      }
     }
 
     public function actionLogout(){
