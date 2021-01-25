@@ -1,5 +1,7 @@
 <?php
-  class AuthController extends Controller{      
+  class AuthController extends Controller{
+    protected $layout = "auth";
+
     public function actionTestLogin(){
       var_dump(GebruikerModel::login("G.Zaad@gmail.com", "jemoeder1234"));
     }
@@ -13,10 +15,10 @@
         if($session) {
           $this->redirect("/");
         } else {
-          $this->renderView("Auth/placeholder_login", ["error" => "Wollah dit is geen bestaande user"]);
+          $this->renderView("Auth/login", ["error" => "Wollah dit is geen bestaande user"]);
         }
       } else {
-        $this->renderView("Auth/placeholder_login", ["error" => ""]);
+        $this->renderView("Auth/login", ["error" => ""]);
       }
     }
 

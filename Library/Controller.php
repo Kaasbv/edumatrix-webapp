@@ -1,6 +1,6 @@
 <?php
   class Controller {
-    private $layout = "default";
+    protected $layout = "default";
 
     public function renderView($name, $context = []){
       $view = new View($name, $this->layout);
@@ -13,5 +13,4 @@
       exit();
     }
   }
-
 ?>
