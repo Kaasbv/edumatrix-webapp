@@ -5,13 +5,17 @@ class LesModel extends Model {
 
     protected static $_joins = [
         [
-          "foreignKey" => "KLAS_ID",
-          "tableName" => "LeerlingKlas",
-        ]
-        [
             "foreignKey" => "DOCENT_ID",
             "tableName" => "DocentModel",
-        ]
+        ],
+        [
+            "foreignKey" => "KLAS_ID",
+            "tableName" => "KlasModel",
+        ],
+        [
+            "foreignKey" => "KLAS_ID",
+            "tableName" => "LeerlingKlas",
+        ],
     ];
 
     private int $id;
@@ -22,7 +26,6 @@ class LesModel extends Model {
     private int $roosterId;
     private int $docentId;
     private int $klasId;
-   
 }
 
 ?>
