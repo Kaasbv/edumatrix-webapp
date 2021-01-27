@@ -6,9 +6,6 @@ class RoosterModel extends Model {
     private int $id;
     private string $roosterCode;
    
-    public function roosterWijziging(){
-        return LesModel::GetAll(["LES_ID" => $this->id]);
-    }
 }
 
 ?>

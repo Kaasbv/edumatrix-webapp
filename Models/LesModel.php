@@ -14,14 +14,15 @@ class LesModel extends Model {
         ]
     ];
 
-
     private int $id;
     private string $datumTijd;
-    private string $beschrijving
+    private string $beschrijving;
+    private int $vakId;
+    private int $duurMinuten;
+    private int $roosterId;
+    private int $docentId;
+    private int $klasId;
    
-    public function setAanwezigheid(){
-        return VakModel::GetAll(["VAK_ID" => $this->id]);
-    }
 }
 
 ?>
