@@ -48,6 +48,17 @@
       $klassen = $docent->getKlassen();
       $this->renderView("Cijfer/klassenoverzicht", ["klassen" => $klassen]);
     }
+
+    // public function actionTesten(){
+    //   $gebruiker = LeerlingModel::getOne(["gebruiker_id" => 1212]);
+    //   $gebruiker->getLessen("2020-11-20 11:34", "2022-11-21 11:34");
+    // }
+    public function actionTesten(){
+      $gebruiker = Session::$user;
+      $gebruiker->getLessen("2020-11-20 11:34", "2022-11-21 11:34");
+      var_dump($gebruiker);
+    }
+
 }
 
   

@@ -60,5 +60,30 @@ class GebruikerModel extends Model {
             return false;
         }
     }
+
+    public function getLessen($begintijd, $eindtijd) {
+
+        var_dump($this->relatieRol);
+        echo "<br>";
+
+        if($this->relatieRol === "leerling"){
+            $lessen = LESMODEL::GetAll([
+                "LEERLING_ID" => $this->id,
+                "ROOSTER_ID" => $this->roosterId,
+                ["DATUM_TIJD", ">=", $begintijd],
+                ["DATUM_TIJD", "<=", $eindtijd]
+            ]);
+        } else if($this->relatieRol === "docent"){
+            $lessen = LESMODEL::GetAll([
+                "DOCENT_ID" => $this->id,
+                "ROOSTER_ID" => $this->roosterId,
+                ["DATUM_TIJD", ">=", $begintijd],
+                ["DATUM_TIJD", "<=", $eindtijd] 
+                
+            ]);
+        }
+        var_dump($lessen);
+    }
 }
+
 ?>

@@ -15,6 +15,7 @@ class LeerlingModel extends GebruikerModel {
   public int $gebruikerId;
   public string $niveau;
   public int $leerjaar;
+  public int $roosterId;
 
   public function __construct($leerlingnummer, $gebruikerId, $niveau, $leerjaar){
     $this->leerlingnummer = $leerlingnummer;
