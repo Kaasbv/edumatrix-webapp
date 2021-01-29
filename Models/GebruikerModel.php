@@ -84,6 +84,10 @@ class GebruikerModel extends Model {
         }
         var_dump($lessen);
     }
+
+    public function isAuthorized($arrayOfUserTypes){
+        return in_array(Session::$user->relatieRol, $arrayOfUserTypes);
+    }
 }
 
 ?>
