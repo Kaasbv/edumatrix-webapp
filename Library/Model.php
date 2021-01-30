@@ -5,13 +5,34 @@ class Model {
   public static $_inheritanceColumn;
   public static $_primaryKey = "id";
   
+  protected static $_relations = [
+    [
+      "model" => Model, //Bevat Model waarmee je de relatie aangaat
+      "fromModel" => Model, //Bevat in sommige gevallen het model waarvanaf gejoined wordt als er dubbel wordt gejoined 
+      "fromProperty" => "", //de property in deze ($this) model
+      "toProperty" => "", //de property in het 
+    ]
+  ]
+
   protected static $_joins = [
     // [ ***VOORBEELD***
     //   "primaryKey" => "", //key in onze table standaard id bijvoorbeeld van klas
     //   "foreignKey" => "modelname_id", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
     //   "tableName" => "modelnamekoppeltabel", //koppeltabel
     //   "primaryTableName" => "modelnametabel", //tabel waarvandaan komt 
-    //   "modelName" => "modelname" //evt naam voor koppelen tabel
+    //   "modelName" => "modelname", //evt naam voor koppelen tabel
+    //   "propertyName" => "model"
+    // ]
+  ];
+
+  protected static $_subclasses = [
+    // [ ***VOORBEELD***
+    //   "primaryKey" => "", //key in onze table standaard id bijvoorbeeld van klas
+    //   "foreignKey" => "modelname_id", //matcht met deze key in koppel tabel bijvoorbeeld klas_id
+    //   "tableName" => "modelnamekoppeltabel", //koppeltabel
+    //   "primaryTableName" => "modelnametabel", //tabel waarvandaan komt 
+    //   "modelName" => "modelname", //evt naam voor koppelen tabel
+    //   "propertyName" => "model"
     // ]
   ];
 
@@ -184,6 +205,14 @@ class Model {
   public static function getOne($where = []){
     $items = self::getAll($where, 1);
     return count($items) !== 0 ? $items[0] : null;
+  }
+
+  function __get($propertyName){
+    //try to find a subclass
+    $joinResults = array_filter($this->_joins, fn($join) => isset($join["propertyName"]) && $join["propertyName"] === $propertyName);
+    if(count($joinResults) > 0){
+      
+    }
   }
 
   private static function camelToSnake($input){
