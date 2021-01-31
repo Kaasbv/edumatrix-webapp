@@ -1,6 +1,9 @@
 <?php
   class CijferController extends Controller{
     public function actionKlas(){
+      //Authorization
+      $this->checkAuthorization(["docent"]);
+
       if(!isset($_GET["klasId"])){
         throw new Exception("KlasId niet gespecificeerd", 400);
       }
@@ -27,6 +30,9 @@
     }
 
     public function actionUpdate(){
+      //Authorization
+      $this->checkAuthorization(["docent"]);
+
       if(isset($_POST ["beoordelingId"]) && isset($_POST ["leerlingId"])){
         $cijferModel = new CijferModel($_POST ["leerlingId"], $_POST ["beoordelingId"], $_POST ["cijfer"]);
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
@@ -44,7 +50,10 @@
     }
 
     public function actionKlassenoverzicht(){
-      $docent = DocentModel::getOne(["id" => 1]);
+      //Authorization
+      $this->checkAuthorization(["docent"]);
+
+      $docent = Session::$user;
       $klassen = $docent->getKlassen();
       $this->renderView("Cijfer/klassenoverzicht", ["klassen" => $klassen]);
     }

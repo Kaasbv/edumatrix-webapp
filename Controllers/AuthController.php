@@ -2,10 +2,6 @@
   class AuthController extends Controller{
     protected $layout = "auth";
 
-    public function actionTestLogin(){
-      var_dump(GebruikerModel::login("G.Zaad@gmail.com", "jemoeder1234"));
-    }
-
     public function actionLogin(){
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_REQUEST['username'];
@@ -15,7 +11,7 @@
         if($session) {
           $this->redirect("/");
         } else {
-          $this->renderView("Auth/login", ["error" => "Wollah dit is geen bestaande user"]);
+          $this->renderView("Auth/login", ["error" => "Email of wachtwoord fout"]);
         }
       } else {
         $this->renderView("Auth/login", ["error" => ""]);
