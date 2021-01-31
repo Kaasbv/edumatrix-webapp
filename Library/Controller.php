@@ -12,5 +12,15 @@
       header("Location: {$path}");
       exit();
     }
+
+    public function checkAuthorization($arrayOfUserTypes = []){
+      if(!isset(Session::$user)){
+        ob_clean();
+        header("Location: /auth/login");
+        exit();
+      }else if(count($arrayOfUserTypes) !== 0 && !Session::$user->isAuthorized($arrayOfUserTypes)){
+        throw new Error("Unauthorized for this action", 403);
+      }
+    }
   }
 ?>

@@ -80,6 +80,10 @@ class GebruikerModel extends Model {
         }
         return $lessen;
     }
+
+    public function isAuthorized($arrayOfUserTypes){
+        return in_array(Session::$user->relatieRol, $arrayOfUserTypes);
+    }
 }
 
 ?>

@@ -29,6 +29,6 @@ class Session {
 
   public static function destroy(){
     session_destroy();
-    unset(self::$user);
+    self::$user = null;
   }
 }
