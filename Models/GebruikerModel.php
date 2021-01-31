@@ -62,10 +62,6 @@ class GebruikerModel extends Model {
     }
 
     public function getLessen($begintijd, $eindtijd) {
-
-        var_dump($this->relatieRol);
-        echo "<br>";
-
         if($this->relatieRol === "leerling"){
             $lessen = LESMODEL::GetAll([
                 "LEERLING_ID" => $this->id,
@@ -82,7 +78,7 @@ class GebruikerModel extends Model {
                 
             ]);
         }
-        var_dump($lessen);
+        return $lessen;
     }
 }
 
