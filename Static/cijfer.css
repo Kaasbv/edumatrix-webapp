@@ -20,12 +20,20 @@
   background-color: lightgray;
 }
 
-#tableView > table td.selected{
-  background-color: lightgray;
+#tableView > table td.nvt{
+  background-color: #FFEB9C;
+}
+
+#tableView > table td.voldoende{
+  background-color: #C6EFCE;
 }
 
 #tableView > table td.onvoldoende{
-  background-color: red;
+  background-color: #FFC7CE;
+}
+
+#tableView > table td.selected{
+  background-color: lightgray;
 }
   
 #tableView > table > tbody td:first-child {

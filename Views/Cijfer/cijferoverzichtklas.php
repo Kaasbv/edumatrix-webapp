@@ -28,11 +28,15 @@
               $cijfer = (object)[];
               $classes = [];
 
-              if(count($results) > 0){//Er hoort een cijfer bij
+              if(count($results) > 0){
+                //Er hoort een cijfer bij
                 $cijfer = $results[0];
                 //Set correct suffix
                 $urlSuffix = "&cijferId={$cijfer->id}";
                 //generate classes
+                if($cijfer->cijfer >= 5.5){
+                  $classes[] = "voldoende";
+                }
                 if($cijfer->cijfer < 5.5){
                   $classes[] = "onvoldoende";
                 }
@@ -42,6 +46,7 @@
               }else{
                 //Set correct suffix
                 $urlSuffix = "&beoordelingId={$beoordeling->id}&leerlingId={$leerling->id}";
+                $classes[] = "nvt";
                 //generate classes
                 if($selectedBeoordelingId == $beoordeling->id && $selectedLeerlingId == $leerling->id){
                   $classes[] = "selected";
