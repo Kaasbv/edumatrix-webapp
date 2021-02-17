@@ -5,7 +5,7 @@ class RoosterModel extends Model {
 
     private int $id;
     private string $roosterCode;
-   
+    
 }
 
 ?>

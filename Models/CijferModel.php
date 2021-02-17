@@ -10,10 +10,10 @@ class CijferModel extends Model {
             "tableName" => "BeoordelingModel",
         ],
         [
-          "primaryKey" => "KLAS_ID",
-          "primaryTableName" => "BeoordelingModel",
-          "foreignKey" => "ID",
-          "tableName" => "KlasModel",
+            "primaryKey" => "KLAS_ID",
+            "primaryTableName" => "BeoordelingModel",
+            "foreignKey" => "ID",
+            "tableName" => "KlasModel",
         ]
     ];
 
