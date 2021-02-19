@@ -16,7 +16,7 @@
         }
 
         public function actionIndex(){
-            $this->lessen = session::$user->getLessen($beginTijd, $eindTijd);
+            $this->lessen = Session::$user->getLessen($beginTijd, $eindTijd);
 
             viewRooster($beginTijd, $eindTijd, $lessen);
         }
