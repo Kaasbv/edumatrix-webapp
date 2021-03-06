@@ -7,6 +7,7 @@ class SiteController extends Controller {
   public function actionWip(){
     $this->renderView("wip");
   }
+
 }
 
 ?>

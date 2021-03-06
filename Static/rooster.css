@@ -1,0 +1,31 @@
+#Rooster{
+    text-align: center;
+}
+
+#Maand, #Week {
+    text-align: center;
+    padding: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#RoosterWeergave {
+    width: 90%;
+    margin-bottom: 50px;
+}
+
+th, .RoosterTijd  {
+    background-color: cyan;
+}
+
+.RoosterTijd {
+    background-color: cyan;
+    height: 50px;
+}
+
+#RoosterWeergave > tbody > tr > th {
+    width: 10%;
+    text-align: center;
+}
