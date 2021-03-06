@@ -4,16 +4,16 @@
 <?php
 $lessen = [
   (object)[
-    "datumTijd" => "2020-12-11 15:00",
+    "datumTijd" => "2021-03-04 15:00",
     "docent" => (object) ["code" => "GEN"],
     "klas" => (object) ["naam" => "HVA1"],
     "vak" => (object) ["naam" => "Frans"]
   ],
   (object)[
-    "datumTijd" => "2020-12-11 16:00",
+    "datumTijd" => "2021-03-05 16:00",
     "docent" => (object) ["code" => "Ben"],
     "klas" => (object) ["naam" => "HVA1"],
-    "vak" => (object) ["naam" => "Aarderijksunde"]
+    "vak" => (object) ["naam" => "Aardrijkskunde"]
   ],
 ];
 
@@ -35,13 +35,27 @@ $lessen = [
     </tr>
     <tr>
         <td class = "RoosterTijd" >00:00 </td>
-        <td rowspan= "25"></td>
-        <td rowspan= "25"> </td>
-        <td rowspan= "25"> </td>
-        <td rowspan= "25"> </td>
-        <td rowspan= "25"> </td>
-        <td rowspan= "25"> </td>
-        <td rowspan= "25"> </td>
+        <?php
+            $y = 0;
+            while ($y < 7) {
+                $date = date('d-m-y', strtotime($startDate . " + $y days") );
+                echo "<td rowspan=25>";
+                foreach ($lessen as $les) {
+                    $dateLesson = date('d-m-y', strtotime($les->datumTijd));
+                    if($date === $dateLesson){
+                        $hour = date('h', strtotime($les->datumTijd));
+                        echo "<div class='jemoeder' style='margin-top: {$hour}px'>
+                                <span>{$les->vak->naam}</span>
+                                <span>{$les->klas->naam}</span>
+                                <span>{$les->docent->code}</span>
+                            </div>
+                        ";
+                    }
+                }
+                echo "</td>";
+            $y++;
+            }
+        ?>
     </tr>
     <?php
 
