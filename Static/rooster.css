@@ -9,11 +9,17 @@
 
 table, th, td {
     border: 1px solid black;
+    vertical-align: top;
+    position: relative;
+
 }
 
 #RoosterWeergave {
+    display: block;
     width: 90%;
     margin-bottom: 50px;
+    height: 600px;
+
 }
 
 th, .RoosterTijd  {
@@ -22,10 +28,46 @@ th, .RoosterTijd  {
 
 .RoosterTijd {
     background-color: cyan;
-    height: 50px;
+    height: 80px;
 }
 
-#RoosterWeergave > tbody > tr > th {
-    width: 10%;
+#RoosterWeergave > thead > tr > th {
     text-align: center;
+}
+
+.LesInRooster > span {
+    width: 190px;
+    text-align: center;
+}
+
+.LesInRooster {
+    display: block;
+    background-color: gray;
+    position: relative;
+    overflow: hidden;
+}
+
+thead {
+    display: block;
+    top: 0;
+
+}
+
+tbody {
+    overflow: scroll;
+    height: 500px;
+    display: block;
+}
+.dagColum {
+    width: calc(100%/8);
+
+}
+
+.dagWeergave {
+    width: calc(100%/8);
+
+}
+
+th {
+    width: calc(100%/8);
 }
