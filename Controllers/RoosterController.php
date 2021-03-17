@@ -18,16 +18,14 @@
 
         public function actionIndex(){
             $this->setTimeWeek();
-            var_dump($this->beginTijd, $this->eindTijd);
+            //var_dump($this->beginTijd, $this->eindTijd);
 
             $this->lessen = Session::$user->getLessen($this->beginTijd, $this->eindTijd);
 
-            //viewRooster($this->beginTijd, $this->eindTijd, $this->lessen);
+            viewRooster($this->beginTijd, $this->eindTijd, $this->lessen);
         
         }
 
     }
 
 ?>
-
-<p>php:valid</p>
