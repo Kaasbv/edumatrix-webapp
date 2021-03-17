@@ -21,9 +21,12 @@
             //var_dump($this->beginTijd, $this->eindTijd);
 
             $this->lessen = Session::$user->getLessen($this->beginTijd, $this->eindTijd);
-
-            viewRooster($this->beginTijd, $this->eindTijd, $this->lessen);
-        
+            
+            $this->renderView("rooster/roosterweergave", [
+                "lessen" => $this->lessen,
+                "beginTijd" => $this->beginTijd,
+                "eindTijd" => $this->eindTijd
+            ]);
         }
 
     }
