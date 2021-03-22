@@ -4,18 +4,53 @@
 <?php
 $lessen = [
   (object)[
+    "datumTijd" => "2021-03-05 15:00",
+    "duur" => 80,
+    "docent" => (object) ["code" => "Jimmy"],
+    "klas" => (object) ["naam" => "HVA1"],
+    "vak" => (object) ["naam" => "Wiskunde"]
+  ],
+  (object)[
+    "datumTijd" => "2021-03-02 09:00",
+    "duur" => 120,
+    "docent" => (object) ["code" => "Ben"],
+    "klas" => (object) ["naam" => "HVA1"],
+    "vak" => (object) ["naam" => "Duits"]
+  ],
+  (object)[
+    "datumTijd" => "2021-03-04 09:00",
+    "duur" => 120,
+    "docent" => (object) ["code" => "Nassim"],
+    "klas" => (object) ["naam" => "HVA1"],
+    "vak" => (object) ["naam" => "Nederlands"]
+  ],
+  (object)[
+    "datumTijd" => "2021-03-04 08:00",
+    "duur" => 50,
+    "docent" => (object) ["code" => "Jimmy"],
+    "klas" => (object) ["naam" => "HVA1"],
+    "vak" => (object) ["naam" => "Wiskunde"]
+  ],
+  (object)[
     "datumTijd" => "2021-03-04 12:00",
     "duur" => 60,
-    "docent" => (object) ["code" => "GEN"],
+    "docent" => (object) ["code" => "Marijn"],
     "klas" => (object) ["naam" => "HVA1"],
     "vak" => (object) ["naam" => "Frans"]
   ],
   (object)[
-    "datumTijd" => "2021-03-05 18:00",
+    "datumTijd" => "2021-03-03 10:00",
     "duur" => 120,
     "docent" => (object) ["code" => "Ben"],
     "klas" => (object) ["naam" => "HVA1"],
     "vak" => (object) ["naam" => "Aardrijkskunde"]
+  ],
+  (object)[
+    "datumTijd" => "2021-03-05 10:00",
+    "duur" => 120,
+    "docent" => (object) ["code" => "Katya"],
+    "klas" => (object) ["naam" => "HVA1"],
+    "vak" => (object) ["naam" => "Russisch"]
   ],
 ];
 
@@ -24,7 +59,7 @@ $lessen = [
 <table id =RoosterWeergave>
     <thead>
         <tr>
-            <th></th>
+            <th class = "dagWeergave"></th>
             <?php
                 $startDate = "2021-03-01 14:00";
                 for ($y = 0; $y <7; $y++ ) {
@@ -36,7 +71,7 @@ $lessen = [
             ?>
         </tr>
     </thead>
-    <tbody class = "roosterbody">
+    <tbody  id  = "roosterBody"  >
     <tr>
         <td class = "RoosterTijd" >00:00 </td>
         <?php
@@ -53,11 +88,13 @@ $lessen = [
                         $timeCalc = $hourCalc + $minutesCalc;
 
                         $lesDuur =  (80/60) * $les ->duur;
-                        echo "<div class='LesInRooster' style='margin-top: {$timeCalc}px; height:{$lesDuur}px'>
+                        echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
+                                <div class ='LesDetails'>
                                 <span>{$les->vak->naam}</span>
                                 <span>{$les->klas->naam}</span>
                                 <span>{$les->docent->code}</span>
                                 <span>$hour:$minutes</span>
+                                </div>
                             </div>
                         ";
                     }
@@ -85,3 +122,8 @@ $lessen = [
     ?> 
     </tbody>
 </table>
+
+
+<script>
+document.getElementById('roosterBody').scrollTop = 600;
+</script>

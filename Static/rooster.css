@@ -7,7 +7,7 @@
     padding: 10px;
 }
 
-table, th, td {
+#RoosterWeergave, .dagWeergave , .RoosterTijd, .dagColum {
     border: 1px solid black;
     vertical-align: top;
     position: relative;
@@ -18,56 +18,66 @@ table, th, td {
     display: block;
     width: 90%;
     margin-bottom: 50px;
-    height: 600px;
 
 }
 
-th, .RoosterTijd  {
-    background-color: cyan;
+.dagWeergave, .RoosterTijd  {
+    background-color: lightgray;
 }
 
 .RoosterTijd {
-    background-color: cyan;
     height: 80px;
+    width: 300px
 }
 
 #RoosterWeergave > thead > tr > th {
     text-align: center;
+    width: calc(100%/8);
 }
 
-.LesInRooster > span {
-    width: 190px;
+.LesDetails > span {
+    display: inline-block;
     text-align: center;
+    width: 45%;
+}
+
+.LesDetails {
+    display: table-cell;
+    text-align: center;
+    height: 100%;
+    vertical-align: middle;
+
 }
 
 .LesInRooster {
-    display: block;
+    display: table;
     background-color: gray;
-    position: relative;
+    position: absolute;
     overflow: hidden;
+    width: 100%;
+    border: 2px solid black;
+    text-align: center;
 }
 
-thead {
+#RoosterWeergave > thead {
+    table-layout: fixed;
+    display: table;
+    width: calc( 100% - 1.35% );
+}
+
+#RoosterWeergave > tbody {
+    overflow: auto;
+    max-height: 600px;
     display: block;
-    top: 0;
-
 }
 
-tbody {
-    overflow: scroll;
-    height: 500px;
-    display: block;
-}
+
 .dagColum {
     width: calc(100%/8);
 
 }
 
 .dagWeergave {
-    width: calc(100%/8);
+    width: calc(100%/8.1);
 
-}
-
-th {
-    width: calc(100%/8);
 }
