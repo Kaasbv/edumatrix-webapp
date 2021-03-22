@@ -5,6 +5,7 @@ class DocentModel extends GebruikerModel {
 
     public string $docentCode;
     public int $id;
+    public int $roosterId;
 
     function __construct($docentCode)
     {

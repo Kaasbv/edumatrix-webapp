@@ -13,6 +13,7 @@
             <input type =  "submit" id = "btn" value = "Login" />  
         </p>
         <p><?php echo $context->error ?></p>
+        <p>Voor Kenneth credentials:<br> Username: docent1@edumatrix.nl <br> Password: Start1234</p>
     </form>  
 </div>    
 <script>

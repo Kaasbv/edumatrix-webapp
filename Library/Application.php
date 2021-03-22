@@ -28,6 +28,9 @@ class Application {
     //start routing
     ob_start();
     (new Router())->execute();
+
+    //close after
+    $database->closeConnection();
   }
 
   public function exceptionHandler($exception){

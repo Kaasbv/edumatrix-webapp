@@ -17,6 +17,10 @@
       }
     }
 
+    public static function closeConnection(){
+      self::$connection->close();
+    }
+
     public static function select($table, $select = [], $where = [], $limit = false, $joins = [], $groupBy = false){
       $preparedValues = $preparedTypes = [];
       $selectPart = count($select) === 0 ? "*" : implode(",", $select);

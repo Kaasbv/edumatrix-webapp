@@ -1,3 +1,3 @@
 <a href="/" class="left-side"><img src="/images/edulogo_transparent.png" alt= "Edumatrix logo" id="edulogo"></a> 
-<a href="/site/wip" class="right-side"><img src="https://icons.getbootstrap.com/icons/power.svg" alt= "Logout button" id="logout"></a>
-<a href="/site/wip" class="right-side" id ="profileLink"><img src="https://icons.getbootstrap.com/icons/person-square.svg" alt= "Profiel link" id="profile"> <?= Session::$user ? Session::$user->voornaam : "Mijn profiel" ?></a>
+<a href="/auth/logout" class="right-side" alt="Logout button"><i class="bi bi-power"></i></a>
+<a href="/site/wip" class="right-side" id ="profileLink" alt= "Profiel link" id="profile"> <?= Session::$user ? Session::$user->voornaam : "Mijn profiel" ?><i class="bi bi-person-square"></i></a>

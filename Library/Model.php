@@ -15,7 +15,7 @@ class Model {
     // ]
   ];
 
-  public function getObjectVarsFromClass($className){
+  private function getObjectVarsFromClass($className){
     $reflectionClass = new ReflectionClass(get_called_class());
     $properties = $reflectionClass->getProperties();
 
@@ -43,7 +43,7 @@ class Model {
     }
   }
 
-  public function saveClass($className, $primaryKeyValue = false){
+  private function saveClass($className, $primaryKeyValue = false){
     $properties = $this->getObjectVarsFromClass($className);
 
     $updateObject = [];
@@ -85,7 +85,7 @@ class Model {
     return $instance;
   }
 
-  public static function generateWhere($where){
+  private static function generateWhere($where){
     $reflectionClass = new ReflectionClass(get_called_class());
     $properties = $reflectionClass->getProperties();
 
@@ -135,7 +135,7 @@ class Model {
     return $response;
   }
 
-  public static function generateSelect(){
+  private static function generateSelect(){
     $map = [];
     $classes = array_keys(class_parents(get_called_class()));
     array_unshift($classes, get_called_class());
@@ -159,7 +159,7 @@ class Model {
     return array_values($map);
   }
 
-  public static function generateJoins(){
+  private static function generateJoins(){
     $joins = [];
     $className = get_called_class();
     //Add own joins

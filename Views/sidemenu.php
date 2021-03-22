@@ -1,5 +1,6 @@
-<a href="/"><img src="https://icons.getbootstrap.com/icons/grid.svg" alt= "dashboard icon"> Dashboard</a>
-<a href="/rooster/roosteroverzicht"><img src="https://icons.getbootstrap.com/icons/calendar-date.svg" alt= "Calender icon"> Agenda</a>
-<a href="/cijfer/klassenoverzicht"><img src="https://icons.getbootstrap.com/icons/check2-square.svg" alt= "Cijfer icon">Cijfers</a>
-<a href="/site/wip"><img src="https://icons.getbootstrap.com/icons/file-earmark-plus.svg" alt= "Toetsen/assignment icon">Toetsen/assessments</a>
-<a href="/site/wip"><img src="https://icons.getbootstrap.com/icons/journals.svg" alt= "Administratie icon">Administratie</a>
+
+<a href="/" alt= "dashboard icon"><i class="bi bi-grid"></i> Dashboard</a>
+<a href="/rooster/roosteroverzicht" alt= "Calender icon"><i class="bi bi-calendar-date"></i> Agenda</a>
+<a href="/cijfer/klassenoverzicht" alt= "Cijfer icon"><i class="bi bi-check2-square"></i>Cijfers</a>
+<a href="/site/wip" alt= "Toetsen/assignment icon"><i class="bi bi-file-earmark-plus"></i>Toetsen/assessments</a>
+<a href="/site/wip" alt= "Administratie icon"><i class="bi bi-journals"></i>Administratie</a>

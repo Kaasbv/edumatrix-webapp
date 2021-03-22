@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
+
 body {
     background-color: white;
     overflow: hidden;
@@ -273,3 +275,29 @@ input[type=number] {
     -moz-appearance: textfield;
   }
 /*************Cijfer menu EXIT ***************/
+
+
+/*************roosterwidget.php opmaak*************/
+#roosterWidget > tbody > tr > td{
+    border: 1px solid black;
+    padding: 10px;
+    background-color: white;
+}
+
+#roosterWidgetBack {
+    width: 300px;
+    padding: 10px;
+    background-color: #4EABE6;
+    border-radius: 5px;
+}
+
+#roosterWidgetBack > h3 {
+    text-align: center;
+}
+
+/*************roosterWidget EXIT***************/
+
+/**********ICONS (CDN)************/
+i.bi{
+    font-size: x-large;
+}
