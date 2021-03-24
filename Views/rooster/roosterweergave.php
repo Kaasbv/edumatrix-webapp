@@ -56,7 +56,7 @@ $lessen = [
 
 ?>
 
-<table id =RoosterWeergave>
+<table id = "RoosterWeergave">
     <thead>
         <tr>
             <th class = "dagWeergave"></th>
@@ -71,7 +71,7 @@ $lessen = [
             ?>
         </tr>
     </thead>
-    <tbody  id  = "roosterBody"  >
+    <tbody id = "roosterBody">
     <tr>
         <td class = "RoosterTijd" >00:00 </td>
         <?php
@@ -81,13 +81,14 @@ $lessen = [
                 foreach ($lessen as $les) {
                     $dateLesson = date('d-m-y', strtotime($les->datumTijd));
                     if($date === $dateLesson){
+                        $tijdHoogte = 80;
                         $hour = date('H', strtotime($les->datumTijd));
-                        $hourCalc = 80 * $hour; 
+                        $hourCalc = $tijdHoogte * $hour; 
                         $minutes  = date ("i" , strtotime($les-> datumTijd));
-                        $minutesCalc = (80/60) * $minutes;
+                        $minutesCalc = ($tijdHoogte/60) * $minutes;
                         $timeCalc = $hourCalc + $minutesCalc;
 
-                        $lesDuur =  (80/60) * $les ->duur;
+                        $lesDuur =  ($tijdHoogte/60) * $les ->duur;
                         echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
                                 <div class ='LesDetails'>
                                 <span>{$les->vak->naam}</span>
@@ -107,16 +108,14 @@ $lessen = [
 
         for ($time = 1; $time <= 24; $time++) {
             if ($time <= 23) {
-                echo 
-                    "<tr>
-                    <td class = RoosterTijd> $time:00</td>       
-                    </tr>";
+                echo "<tr>";
+                echo "<td class = RoosterTijd> $time:00</td>";
+                echo "</tr>";
             }
             elseif ($time <= 24) {
-                echo 
-                    "<tr>
-                    <td class = RoosterTijd> 23:59</td>       
-                    </tr>";
+                echo "<tr>";
+                echo "<td class = RoosterTijd> 23:59</td>";    
+                echo "</tr>";
             }
         }       
     ?> 
