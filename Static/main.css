@@ -300,4 +300,5 @@ input[type=number] {
 /**********ICONS (CDN)************/
 i.bi{
     font-size: x-large;
+    padding-left: 10px;
 }
