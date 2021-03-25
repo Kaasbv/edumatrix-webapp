@@ -9,6 +9,7 @@ class SiteController extends Controller {
     $this->checkAuthorization();
     $this->renderView("wip");
   }
+
 }
 
 ?>

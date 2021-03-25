@@ -1,0 +1,79 @@
+#Maand, #Week {
+    text-align: center;
+    padding: 10px;
+}
+
+#RoosterWeergave, .dagWeergave , .RoosterTijd, .dagColum {
+    border: 1px solid black;
+    vertical-align: top;
+    position: relative;
+
+}
+
+#RoosterWeergave {
+    display: block;
+    width: 90%;
+    margin-bottom: 50px;
+}
+
+#RoosterWeergave > thead {
+    table-layout: fixed;
+    display: table;
+    width: calc( 100% - 1.35% );
+}
+
+#RoosterWeergave > tbody {
+    overflow: auto;
+    max-height: 600px;
+    display: block;
+}
+
+#RoosterWeergave > thead > tr > th {
+    text-align: center;
+    width: calc(100%/8);
+}
+
+
+.dagWeergave, .RoosterTijd  {
+    background-color: lightgray;
+}
+
+.RoosterTijd {
+    height: 80px;
+    width: 300px
+}
+
+
+.LesDetails > span {
+    display: inline-block;
+    text-align: center;
+    width: 45%;
+}
+
+.LesDetails {
+    display: table-cell;
+    text-align: center;
+    height: 100%;
+    vertical-align: middle;
+
+}
+
+.LesInRooster {
+    display: table;
+    background-color: gray;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.dagColum {
+    width: calc(100%/8);
+
+}
+
+.dagWeergave {
+    width: calc(100%/8.1);
+
+}

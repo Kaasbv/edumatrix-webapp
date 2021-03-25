@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/main.css">  
     <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/rooster.css">
   </head>
   <body>
     <nav><?= $this -> renderSubView("header") ?></nav>
