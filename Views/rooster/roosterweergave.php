@@ -55,7 +55,6 @@ $lessen = [
 ];
 
 ?>
-
 <table id = "RoosterWeergave">
     <thead>
         <tr>
