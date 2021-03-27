@@ -1,5 +1,5 @@
-<h1 id = "Maand"><?php echo date("F")?></h1>
-<h2 id = "Week">Week <?php echo date("W")?></h2>
+<h1 id = "Maand"><?php echo date("F", strtotime($context->startDate))?></h1>
+<h2 id = "Week">Week <?php echo date("W", strtotime($context->startDate))?></h2>
 
 <?php
 $lessen = [
@@ -61,11 +61,10 @@ $lessen = [
         <tr>
             <th class = "dagWeergave"></th>
             <?php
-                $startDate = "2021-03-01 14:00";
                 for ($y = 0; $y <7; $y++ ) {
                     echo "<th class = 'dagWeergave'>";
                     echo "<div class = 'dag'></div>";
-                    echo date('D d-M', strtotime($startDate . " + $y days") ) ;
+                    echo date('D d-M', strtotime($context->startDate . " + $y days") ) ;
                     echo "</th>";
                 }
             ?>
@@ -76,9 +75,9 @@ $lessen = [
         <td class = "RoosterTijd" >00:00 </td>
         <?php
             for( $y = 0; $y < 7; $y++) {
-                $date = date('d-m-y', strtotime($startDate . " + $y days") );
+                $date = date('d-m-y', strtotime($context->startDate . " + $y days") );
                 echo "<td class = 'dagColum' rowspan=25>";
-                foreach ($lessen as $les) {
+                foreach ($context->lessen as $les) {
                     $dateLesson = date('d-m-y', strtotime($les->datumTijd));
                     if($date === $dateLesson){
                         $tijdHoogte = 80;
@@ -88,12 +87,12 @@ $lessen = [
                         $minutesCalc = ($tijdHoogte/60) * $minutes;
                         $timeCalc = $hourCalc + $minutesCalc;
 
-                        $lesDuur =  ($tijdHoogte/60) * $les ->duur;
+                        $lesDuur =  ($tijdHoogte/60) * $les->duurMinuten;
                         echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
                                 <div class ='LesDetails'>
                                 <span>{$les->vak->naam}</span>
-                                <span>{$les->klas->naam}</span>
-                                <span>{$les->docent->code}</span>
+                                <span>{$les->klas->klasNaam}</span>
+                                <span>{$les->docent->docentCode}</span>
                                 <span>$hour:$minutes</span>
                                 </div>
                             </div>

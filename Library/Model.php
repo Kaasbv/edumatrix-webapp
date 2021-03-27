@@ -36,7 +36,7 @@ class Model {
     foreach ($classes as $key => $className) {
       if($key === 0){
         $this->saveClass($className);
-      }else{        
+      }else{
         $primaryKeyValue = $this->{self::snakeToCamel($classes[$key - 1]::$_inheritanceColumn)};
         $this->saveClass($className, $primaryKeyValue);
       }

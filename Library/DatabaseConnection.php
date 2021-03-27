@@ -135,7 +135,7 @@
       return self::runPreparedQuery($query, $preparedValues, $preparedTypes);
     }
 
-    private static function runPreparedQuery($query, $values, $types){
+    public static function runPreparedQuery($query, $values, $types){
       $statement = self::$connection->prepare($query);
       if(!$statement) {
         throw new Exception(self::$connection->error, 500);
@@ -155,6 +155,19 @@
       }
 
       $statement->close();
+
+      return $response ?? [];
+    }
+
+    public static function runQuery($query){
+      $result = self::$connection->query($query);
+      if($result){
+        $response = $result->fetch_all(MYSQLI_ASSOC);
+      }else{
+        throw new Exception("Query failed!" . $result->error, 500);
+      }
+
+      $result->close();
 
       return $response ?? [];
     }

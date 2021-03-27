@@ -3,17 +3,17 @@
 class CijferModel extends Model {
     public static $_tableName = "CijferModel";
 
-    protected static $_joins = [
+    protected static $_relations = [
         [
-            "primaryKey" => "BEOORDELING_ID",
-            "foreignKey" => "ID",
-            "tableName" => "BeoordelingModel",
+            "model" => BeoordelingModel, //Bevat Model waarmee je de relatie aangaat
+            "fromProperty" => "beoordelingId", //de property in deze ($this) model
+            "toProperty" => "id", //de property in het 
         ],
         [
-          "primaryKey" => "KLAS_ID",
-          "primaryTableName" => "BeoordelingModel",
-          "foreignKey" => "ID",
-          "tableName" => "KlasModel",
+            "model" => KlasModel, //Bevat Model waarmee je de relatie aangaat
+            "fromModel" => BeoordelingModel, //Bevat in sommige gevallen het model waarvanaf gejoined wordt als er dubbel wordt gejoined 
+            "fromProperty" => "klasId", //de property in deze ($this) model
+            "toProperty" => "id", //de property in het 
         ]
     ];
 

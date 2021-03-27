@@ -1,6 +1,6 @@
 <?php
 
-class GebruikerModel extends Model {
+class GebruikerModel extends EmptyModel {
     public static $_tableName = "GebruikerModel";
     protected int $id;
     public string $email;
@@ -11,7 +11,26 @@ class GebruikerModel extends Model {
     protected string $password;
     public string $relatieRol;
     protected string $lastLoggedIn;
-    protected string $pfImgPath; 
+    protected string $pfImgPath;
+
+    public static function getById($id){
+        $query = "
+            SELECT * FROM GebruikerModel vm
+            WHERE ID = ?
+        ";
+
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$id], ["i"]);
+
+        $object = new GebruikerModel(
+            $data["VOORNAAM"],
+            $data["TUSSENVOEGSEL"],
+            $data["ACHTERNAAM"]
+        );
+
+        self::fillObject($object, $data);
+
+        return $object;
+    }
 
     public function getVolledigeNaam(){
         if(isset($this->tussenvoegsel)){
@@ -63,20 +82,9 @@ class GebruikerModel extends Model {
 
     public function getLessen($begintijd, $eindtijd) {
         if($this->relatieRol === "leerling"){
-            $lessen = LESMODEL::GetAll([
-                "LEERLING_ID" => $this->id,
-                "ROOSTER_ID" => $this->roosterId,
-                ["DATUM_TIJD", ">=", $begintijd],
-                ["DATUM_TIJD", "<=", $eindtijd]
-            ]);
+            $lessen = LesModel::getPeriodeLeerling($this->id, $begintijd, $eindtijd);
         } else if($this->relatieRol === "docent"){
-            $lessen = LESMODEL::GetAll([
-                "DOCENT_ID" => $this->id,
-                "ROOSTER_ID" => $this->roosterId,
-                ["DATUM_TIJD", ">=", $begintijd],
-                ["DATUM_TIJD", "<=", $eindtijd] 
-                
-            ]);
+            $lessen = LesModel::getPeriodeDocent($this->id, $begintijd, $eindtijd);
         }
         return $lessen;
     }
