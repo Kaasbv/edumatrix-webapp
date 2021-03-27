@@ -32,6 +32,27 @@ class GebruikerModel extends EmptyModel {
         return $object;
     }
 
+
+    public static function getByEmail($email){
+        $query = "
+            SELECT * FROM GebruikerModel vm
+            WHERE EMAIL = ?
+        ";
+
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$email], ["i"]);
+
+        $object = new GebruikerModel(
+            $data["VOORNAAM"],
+            $data["TUSSENVOEGSEL"],
+            $data["ACHTERNAAM"]
+        );
+
+        self::fillObject($object, $data);
+
+        return $object;
+    }
+
+
     public function getVolledigeNaam(){
         if(isset($this->tussenvoegsel)){
             return "{$this->voornaam} {$this->tussenvoegsel} {$this->achternaam}";
@@ -67,7 +88,7 @@ class GebruikerModel extends EmptyModel {
 
 
     public static function login($email, $password){
-        $user = GebruikerModel::getOne(["email" => $email]);
+        $user = GebruikerModel::getByEmail($email);
         if(!isset($user)){ 
             return false;
         }
