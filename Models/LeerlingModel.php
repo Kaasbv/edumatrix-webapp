@@ -12,6 +12,27 @@ class LeerlingModel extends GebruikerModel {
     $this->leerjaar = $leerjaar;
   }
 
+  public static function getByEmail($email){
+    $query = "
+      SELECT * FROM Leerling lm
+      INNER JOIN Gebruiker gm on gm.EMAIL = lm.GEBRUIKER_EMAIL
+      where lm.GEBRUIKER_EMAIL = ?
+    ";
+
+    [$data] = DatabaseConnection::runPreparedQuery($query, [$email], ["s"]);
+
+    $object = new LeerlingModel(
+        $data["LEERLING_NUMMER"],
+        $data["GEBRUIKER_EMAIL"],
+        $data["NIVEAU"],
+        $data["LEERJAAR"],
+    );
+
+    self::fillObject($object, $data);
+
+    return $object;
+  }
+
   public static function getAllByKlasNaam($klasNaam){
     $query = "
         SELECT gm.*, lm.* FROM Leerling lm
