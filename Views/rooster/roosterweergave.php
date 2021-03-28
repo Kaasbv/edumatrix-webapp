@@ -56,71 +56,91 @@ $lessen = [
 
 ?>
 
-<table id = "RoosterWeergave">
-    <thead>
+
+
+
+<div id = "Rooster">
+  <?php
+    $prefixUrl = "/rooster/roosteroverzicht";
+
+    $pastWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " - 1 weeks")));
+    $pastWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " - 1 weeks")));
+    $pastUrl = $prefixUrl . "?startDate={$pastWeekStart}&endDate={$pastWeekEnd}";
+
+    $nextWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " + 1 weeks")));
+    $nextWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " + 1 weeks")));
+    $nextUrl = $prefixUrl . "?startDate={$nextWeekStart}&endDate={$nextWeekEnd}";
+  ?>
+
+  <button class="back" onclick="window.location.href='<?= $pastUrl ?>'">Vorige Week</button>
+  <button class="button" onclick="window.location.href='<?= $nextUrl ?>'">Volgende</button>
+
+
+    <table id = "RoosterWeergave">
+        <thead>
+            <tr>
+                <th class = "dagWeergave"></th>
+                <?php
+                    for ($y = 0; $y <7; $y++ ) {
+                        echo "<th class = 'dagWeergave'>";
+                        echo "<div class = 'dag'></div>";
+                        echo date('D d-M', strtotime($context->startDate . " + $y days") ) ;
+                        echo "</th>";
+                    }
+                ?>
+            </tr>
+        </thead>
+        <tbody id = "roosterBody">
         <tr>
-            <th class = "dagWeergave"></th>
+            <td class = "RoosterTijd" >00:00 </td>
             <?php
-                for ($y = 0; $y <7; $y++ ) {
-                    echo "<th class = 'dagWeergave'>";
-                    echo "<div class = 'dag'></div>";
-                    echo date('D d-M', strtotime($context->startDate . " + $y days") ) ;
-                    echo "</th>";
+                for( $y = 0; $y < 7; $y++) {
+                    $date = date('d-m-y', strtotime($context->startDate . " + $y days") );
+                    echo "<td class = 'dagColum' rowspan=25>";
+                    foreach ($context->lessen as $les) {
+                        $dateLesson = date('d-m-y', strtotime($les->datumTijd));
+                        if($date === $dateLesson){
+                            $tijdHoogte = 80;
+                            $hour = date('H', strtotime($les->datumTijd));
+                            $hourCalc = $tijdHoogte * $hour; 
+                            $minutes  = date ("i" , strtotime($les-> datumTijd));
+                            $minutesCalc = ($tijdHoogte/60) * $minutes;
+                            $timeCalc = $hourCalc + $minutesCalc;
+
+                            $lesDuur =  ($tijdHoogte/60) * $les->duurMinuten;
+                            echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
+                                    <div class ='LesDetails'>
+                                    <span>{$les->vak->naam}</span>
+                                    <span>{$les->klas->klasNaam}</span>
+                                    <span>{$les->docent->docentCode}</span>
+                                    <span>$hour:$minutes</span>
+                                    </div>
+                                </div>
+                            ";
+                        }
+                    }
+                    echo "</td>";
                 }
             ?>
         </tr>
-    </thead>
-    <tbody id = "roosterBody">
-    <tr>
-        <td class = "RoosterTijd" >00:00 </td>
         <?php
-            for( $y = 0; $y < 7; $y++) {
-                $date = date('d-m-y', strtotime($context->startDate . " + $y days") );
-                echo "<td class = 'dagColum' rowspan=25>";
-                foreach ($context->lessen as $les) {
-                    $dateLesson = date('d-m-y', strtotime($les->datumTijd));
-                    if($date === $dateLesson){
-                        $tijdHoogte = 80;
-                        $hour = date('H', strtotime($les->datumTijd));
-                        $hourCalc = $tijdHoogte * $hour; 
-                        $minutes  = date ("i" , strtotime($les-> datumTijd));
-                        $minutesCalc = ($tijdHoogte/60) * $minutes;
-                        $timeCalc = $hourCalc + $minutesCalc;
 
-                        $lesDuur =  ($tijdHoogte/60) * $les->duurMinuten;
-                        echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
-                                <div class ='LesDetails'>
-                                <span>{$les->vak->naam}</span>
-                                <span>{$les->klas->klasNaam}</span>
-                                <span>{$les->docent->docentCode}</span>
-                                <span>$hour:$minutes</span>
-                                </div>
-                            </div>
-                        ";
-                    }
+            for ($time = 1; $time <= 24; $time++) {
+                if ($time <= 23) {
+                    echo "<tr>";
+                    echo "<td class = RoosterTijd> $time:00</td>";
+                    echo "</tr>";
                 }
-                echo "</td>";
-            }
-        ?>
-    </tr>
-    <?php
-
-        for ($time = 1; $time <= 24; $time++) {
-            if ($time <= 23) {
-                echo "<tr>";
-                echo "<td class = RoosterTijd> $time:00</td>";
-                echo "</tr>";
-            }
-            elseif ($time <= 24) {
-                echo "<tr>";
-                echo "<td class = RoosterTijd> 23:59</td>";    
-                echo "</tr>";
-            }
-        }       
-    ?> 
-    </tbody>
-</table>
-
+                elseif ($time <= 24) {
+                    echo "<tr>";
+                    echo "<td class = RoosterTijd> 23:59</td>";    
+                    echo "</tr>";
+                }
+            }       
+        ?> 
+        </tbody>
+    </table>
+</div>
 
 <script>
 document.getElementById('roosterBody').scrollTop = 600;
