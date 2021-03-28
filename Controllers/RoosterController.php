@@ -3,7 +3,7 @@
 class RoosterController extends Controller {
     public function actionRoosteroverzicht(){
         if(!isset($_GET["startDate"])){
-            $startDate = date('Y-m-d', strtotime(date('d-m-Y') . " - " . (date("w") - 1)  . " days")) . " 00:00:00";
+            $startDate = date('Y-m-d', strtotime(date('d-m-Y') . " - " . date("w") . " days")) . " 00:00:00";
         }else{
             $startDate = $_GET["startDate"];
         }
