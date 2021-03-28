@@ -1,8 +1,6 @@
 <?php
 
 class LesModel extends EmptyModel {
-    public static $_tableName = "LesModel";
-    
     public int $id;
     public string $datumTijd;
     public string $beschrijving;

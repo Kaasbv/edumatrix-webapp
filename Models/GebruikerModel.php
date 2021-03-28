@@ -1,7 +1,6 @@
 <?php
 
 class GebruikerModel extends EmptyModel {
-    public static $_tableName = "GebruikerModel";
     protected int $id;
     public string $email;
     public string $voornaam;

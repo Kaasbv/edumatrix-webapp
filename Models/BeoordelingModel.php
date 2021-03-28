@@ -43,9 +43,4 @@ class BeoordelingModel extends EmptyModel {
 
         return $objectArray;
     }
-
-
-    public function getCijfers(){
-        return CijferModel::GetAll(["BEOORDELING_ID" => $this->id]);
-    }
 }

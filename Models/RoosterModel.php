@@ -1,10 +1,8 @@
 <?php
 
-class RoosterModel extends Model {
-    public static $_tableName = "RoosterModel";
-
-    private int $id;
-    private string $roosterCode;
+class RoosterModel extends EmptyModel {
+    public int $id;
+    public string $roosterCode;
    
 }
 

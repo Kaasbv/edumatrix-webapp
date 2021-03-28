@@ -1,8 +1,6 @@
 <?php
 
 class CijferModel extends EmptyModel {
-    public static $_tableName = "CijferModel";
-
     public $id;
     public $leerlingId;
     public $beoordelingId;
