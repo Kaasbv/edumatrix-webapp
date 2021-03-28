@@ -25,7 +25,7 @@ class DocentModel extends GebruikerModel {
                 gm.LAST_LOGGED_IN,
                 gm.PF_IMG_PATH
             FROM Docent dm
-            LEFT JOIN Gebruiker gm ON dm.GEBRUIKER_EMAIL = gm.EMAIL
+            INNER JOIN Gebruiker gm ON dm.GEBRUIKER_EMAIL = gm.EMAIL
             WHERE dm.DOCENT_CODE = ?
         ";
 
@@ -48,7 +48,7 @@ class DocentModel extends GebruikerModel {
                 gm.LAST_LOGGED_IN,
             gm.PF_IMG_PATH
             FROM Docent dm
-            LEFT JOIN Gebruiker gm on gm.EMAIL = dm.GEBRUIKER_EMAIL
+            INNER JOIN Gebruiker gm on gm.EMAIL = dm.GEBRUIKER_EMAIL
             WHERE GEBRUIKER_EMAIL = ?
         ";
 

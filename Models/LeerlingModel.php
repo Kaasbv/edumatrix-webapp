@@ -37,7 +37,7 @@ class LeerlingModel extends GebruikerModel {
     $query = "
         SELECT gm.*, lm.* FROM Leerling lm
         INNER JOIN LeerlingKlas lk on lk.LEERLING_NUMMER = lm.LEERLING_NUMMER
-        LEFT JOIN Gebruiker gm on gm.EMAIL = lm.GEBRUIKER_EMAIL
+        INNER JOIN Gebruiker gm on gm.EMAIL = lm.GEBRUIKER_EMAIL
         WHERE lk.KLAS_NAAM = ?
         GROUP BY lm.LEERLING_NUMMER
     ";

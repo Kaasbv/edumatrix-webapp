@@ -13,9 +13,9 @@ class LesModel extends EmptyModel {
     static function getPeriodeDocent($docentCode, $startDate, $endDate){
         $query = "
             SELECT * FROM Les lm 
-            left join Docent dm on lm.DOCENT_CODE = dm.DOCENT_CODE
-            left join Klas km on lm.KLAS_NAAM = km.KLAS_NAAM
-            where lm.DOCENT_CODE = ? AND lm.DATUM_TIJD > ? AND lm.DATUM_TIJD < ?
+            INNER JOIN Docent dm on lm.DOCENT_CODE = dm.DOCENT_CODE
+            INNER JOIN Klas km on lm.KLAS_NAAM = km.KLAS_NAAM
+            WHERE lm.DOCENT_CODE = ? AND lm.DATUM_TIJD > ? AND lm.DATUM_TIJD < ?
         ";
         
         $data = DatabaseConnection::runPreparedQuery($query, [$docentCode, $startDate, $endDate], ["s", "s", "s"]);
@@ -38,10 +38,10 @@ class LesModel extends EmptyModel {
     static function getPeriodeLeerling($leerlingNummer, $startDate, $endDate){
         $query = "
             SELECT lm.* FROM Les lm
-            left join Docent dm on lm.DOCENT_CODE = dm.DOCENT_CODE
-            left join Klas km on lm.KLAS_NAAM = km.KLAS_NAAM
-            left join LeerlingKlas lk on lm.KLAS_NAAM = lk.KLAS_NAAM
-            where lk.LEERLING_NUMMER = ? AND lm.DATUM_TIJD > ? AND lm.DATUM_TIJD < ?
+            INNER JOIN Docent dm on lm.DOCENT_CODE = dm.DOCENT_CODE
+            INNER JOIN Klas km on lm.KLAS_NAAM = km.KLAS_NAAM
+            INNER JOIN LeerlingKlas lk on lm.KLAS_NAAM = lk.KLAS_NAAM
+            WHERE lk.LEERLING_NUMMER = ? AND lm.DATUM_TIJD > ? AND lm.DATUM_TIJD < ?
         ";
         
         $data = DatabaseConnection::runPreparedQuery($query, [$leerlingNummer, $startDate, $endDate], ["i", "s", "s"]);
