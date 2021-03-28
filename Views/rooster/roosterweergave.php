@@ -63,12 +63,12 @@ $lessen = [
   <?php
     $prefixUrl = "/rooster/roosteroverzicht";
 
-    $pastWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " - 1 weeks")));
-    $pastWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " - 1 weeks")));
+    $pastWeekStart = urlencode(date("Y-m-d", strtotime($context->startDate . " - 1 weeks")) . " 00:00:00");
+    $pastWeekEnd = urlencode(date("Y-m-d", strtotime($context->endDate . " - 1 weeks")) . " 23:59:00");
     $pastUrl = $prefixUrl . "?startDate={$pastWeekStart}&endDate={$pastWeekEnd}";
 
-    $nextWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " + 1 weeks")));
-    $nextWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " + 1 weeks")));
+    $nextWeekStart = urlencode(date("Y-m-d", strtotime($context->startDate . " + 1 weeks")) . " 00:00:00");
+    $nextWeekEnd = urlencode(date("Y-m-d", strtotime($context->endDate . " + 1 weeks")) . " 23:59:00");
     $nextUrl = $prefixUrl . "?startDate={$nextWeekStart}&endDate={$nextWeekEnd}";
   ?>
 
