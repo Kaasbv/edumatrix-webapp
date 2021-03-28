@@ -1,14 +1,5 @@
 <?php
 class KlasModel extends EmptyModel {
-  public static $_tableName = "KlasModel";
-
-  protected static $_joins = [
-    [
-      "foreignKey" => "KLAS_ID",
-      "tableName" => "LeerlingKlas",
-    ]
-  ];
-    
   public int $id;
   public string $klasNaam;
   public string $niveau;
@@ -23,15 +14,15 @@ class KlasModel extends EmptyModel {
   }
 
   public function getBeoordelingen() {
-    return BeoordelingModel::getAll(["KLAS_ID" => $this->id]);
+    return BeoordelingModel::getAllByKlasId($this->id);
   }
 
   public function getLeerlingen() {
-    return LeerlingModel::getAll(["KLAS_ID" => $this->id]);
+    return LeerlingModel::getAllByKlasId($this->id);
   }
 
   public function getCijfers() {
-    return CijferModel::GetAll(["KLAS_ID" => $this->id]);
+    return CijferModel::getAllByKlasId($this->id);
   }
 
   public static function getByKlasId($klasId){
@@ -49,7 +40,38 @@ class KlasModel extends EmptyModel {
       $data["NIVEAU"]
     );
 
+    $object->id = $data["ID"];
+
+
     return $object;
+  }
+
+  public static function getAllByDocentId($docentId){
+    $query = "
+        SELECT km.* FROM KlasModel km
+        INNER JOIN LesModel lm on lm.KLAS_ID = km.ID
+        WHERE lm.DOCENT_ID = ?
+        GROUP BY km.id
+    ";
+
+    $data = DatabaseConnection::runPreparedQuery($query, [$docentId], ["i"]);
+
+    $objectArray = [];
+    foreach ($data as $row) {
+      $object = new KlasModel(
+        $row["KLAS_NAAM"],
+        $row["VAK_ID"],
+        $row["LEERJAAR"],
+        $row["NIVEAU"]
+      );
+
+      $object->id = $row["ID"];
+
+      $objectArray[] = $object;
+  }
+
+
+    return $objectArray;
   }
 }
 ?>

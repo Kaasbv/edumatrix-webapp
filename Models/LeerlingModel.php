@@ -23,6 +23,36 @@ class LeerlingModel extends GebruikerModel {
     $this->niveau = $niveau;
     $this->leerjaar = $leerjaar;
   }
+
+  public static function getAllByKlasId($klasId){
+    $query = "
+        SELECT gm.*, lm.* FROM LeerlingModel lm
+        INNER JOIN LeerlingKlas lk on lk.LEERLING_ID = lm.ID
+        LEFT JOIN GebruikerModel gm on gm.ID = lm.GEBRUIKER_ID
+        WHERE lk.KLAS_ID = ?
+        GROUP BY lm.id
+    ";
+
+    $data = DatabaseConnection::runPreparedQuery($query, [$klasId], ["i"]);
+
+    $objectArray = [];
+    foreach ($data as $row) {
+        $object = new LeerlingModel(
+            $row["LEERLINGNUMMER"],
+            $row["GEBRUIKER_ID"],
+            $row["NIVEAU"],
+            $row["LEERJAAR"],
+        );
+
+
+        self::fillObject($object, $row);
+
+        $objectArray[] = $object;
+    }
+
+
+    return $objectArray;
+  }
 }
 
 ?>

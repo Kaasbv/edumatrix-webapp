@@ -67,7 +67,7 @@ class GebruikerModel extends EmptyModel {
             $this->tussenvoegsel = $tussenvoegsel;
         }
         $this->achternaam = $achternaam;
-      }
+    }
 
 
     //password hash + salt
