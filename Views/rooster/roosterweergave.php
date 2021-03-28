@@ -110,7 +110,7 @@ $lessen = [
                             $lesDuur =  ($tijdHoogte/60) * $les->duurMinuten;
                             echo "<div class='LesInRooster' style='top: {$timeCalc}px; height:{$lesDuur}px'>
                                     <div class ='LesDetails'>
-                                    <span>{$les->vak->naam}</span>
+                                    <span>{$les->vak->vakCode}</span>
                                     <span>{$les->klas->klasNaam}</span>
                                     <span>{$les->docent->docentCode}</span>
                                     <span>$hour:$minutes</span>
