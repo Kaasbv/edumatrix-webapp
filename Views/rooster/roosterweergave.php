@@ -60,27 +60,21 @@ $lessen = [
 
 
 <div id = "Rooster">
+  <?php
+    $prefixUrl = "/rooster/roosteroverzicht";
 
-  <button class="back" >Vorige Week</button>
-  <button class="button">Volgende</button>
+    $pastWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " - 1 weeks")));
+    $pastWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " - 1 weeks")));
+    $pastUrl = $prefixUrl . "?startDate={$pastWeekStart}&endDate={$pastWeekEnd}";
 
-  
-<?php
+    $nextWeekStart = urlencode(date("Y-m-d h:m:s", strtotime($context->startDate . " + 1 weeks")));
+    $nextWeekEnd = urlencode(date("Y-m-d h:m:s", strtotime($context->endDate . " + 1 weeks")));
+    $nextUrl = $prefixUrl . "?startDate={$nextWeekStart}&endDate={$nextWeekEnd}";
+  ?>
 
-$time = strtotime($context->startDate) )
+  <button class="back" onclick="window.location.href='<?= $pastUrl ?>'">Vorige Week</button>
+  <button class="button" onclick="window.location.href='<?= $nextUrl ?>'">Volgende</button>
 
-  function prevWeek(){
-    $time = strtotime($context->startDate . " - 1 weeks") )
-  }
-
-  function nextWeek(){
-    $time = strtotime($context->startDate . " + 1 weeks") )
-  }
-
-?>
-
-
-</script>
 
     <table id = "RoosterWeergave">
         <thead>
