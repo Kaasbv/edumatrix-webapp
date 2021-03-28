@@ -1,7 +1,6 @@
 <?php
 
-class GebruikerModel extends Model {
-    public static $_tableName = "GebruikerModel";
+class GebruikerModel extends EmptyModel {
     protected int $id;
     public string $email;
     public string $voornaam;
@@ -11,7 +10,47 @@ class GebruikerModel extends Model {
     protected string $password;
     public string $relatieRol;
     protected string $lastLoggedIn;
-    protected string $pfImgPath; 
+    protected string $pfImgPath;
+
+    public static function getById($id){
+        $query = "
+            SELECT * FROM GebruikerModel vm
+            WHERE ID = ?
+        ";
+
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$id], ["i"]);
+
+        $object = new GebruikerModel(
+            $data["VOORNAAM"],
+            $data["TUSSENVOEGSEL"],
+            $data["ACHTERNAAM"]
+        );
+
+        self::fillObject($object, $data);
+
+        return $object;
+    }
+
+
+    public static function getByEmail($email){
+        $query = "
+            SELECT * FROM GebruikerModel vm
+            WHERE EMAIL = ?
+        ";
+
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$email], ["i"]);
+
+        $object = new GebruikerModel(
+            $data["VOORNAAM"],
+            $data["TUSSENVOEGSEL"],
+            $data["ACHTERNAAM"]
+        );
+
+        self::fillObject($object, $data);
+
+        return $object;
+    }
+
 
     public function getVolledigeNaam(){
         if(isset($this->tussenvoegsel)){
@@ -27,7 +66,7 @@ class GebruikerModel extends Model {
             $this->tussenvoegsel = $tussenvoegsel;
         }
         $this->achternaam = $achternaam;
-      }
+    }
 
 
     //password hash + salt
@@ -48,7 +87,7 @@ class GebruikerModel extends Model {
 
 
     public static function login($email, $password){
-        $user = GebruikerModel::getOne(["email" => $email]);
+        $user = GebruikerModel::getByEmail($email);
         if(!isset($user)){ 
             return false;
         }
@@ -63,20 +102,9 @@ class GebruikerModel extends Model {
 
     public function getLessen($begintijd, $eindtijd) {
         if($this->relatieRol === "leerling"){
-            $lessen = LESMODEL::GetAll([
-                "LEERLING_ID" => $this->id,
-                "ROOSTER_ID" => $this->roosterId,
-                ["DATUM_TIJD", ">=", $begintijd],
-                ["DATUM_TIJD", "<=", $eindtijd]
-            ]);
+            $lessen = LesModel::getPeriodeLeerling($this->id, $begintijd, $eindtijd);
         } else if($this->relatieRol === "docent"){
-            $lessen = LESMODEL::GetAll([
-                "DOCENT_ID" => $this->id,
-                "ROOSTER_ID" => $this->roosterId,
-                ["DATUM_TIJD", ">=", $begintijd],
-                ["DATUM_TIJD", "<=", $eindtijd] 
-                
-            ]);
+            $lessen = LesModel::getPeriodeDocent($this->id, $begintijd, $eindtijd);
         }
         return $lessen;
     }

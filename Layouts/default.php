@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/main.css">  
     <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/rooster.css">
+    
   </head>
   <body>
     <nav><?= $this -> renderSubView("header") ?></nav>
