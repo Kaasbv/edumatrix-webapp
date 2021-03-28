@@ -40,19 +40,33 @@ class CijferModel extends EmptyModel {
         return $object;
     }
 
-    public function save(){
+    public function update(){
         $query = "
             UPDATE CijferModel
-            SET LEERLING_ID=?,
-                BEOORDELING_ID=?,
-                OPMERKING_DOCENT=?,
+            SET
                 CIJFER=?,
-                DATUM_INGEVOERD=?,
-                DATUM_TOETS_GEMAAKT=?,
+                OPMERKING_DOCENT=?,
+                DATUM_TOETS_GEMAAKT=?
             WHERE ID=?;
         ";
 
-        DatabaseConnection::runPreparedQuery($query, [$id], ["i"]);
+        DatabaseConnection::runPreparedQuery($query, [$this->cijfer, $this->opmerkingDocent ?? "", $this->datumToetsGemaakt, $this->id], ["d", "s", "s", "i"]);
+    }
+
+    public function create(){
+        $query = "
+            INSERT INTO CijferModel
+            (LEERLING_ID, BEOORDELING_ID, CIJFER, OPMERKING_DOCENT, DATUM_TOETS_GEMAAKT)
+            VALUES(?, ?, ?, ?, ?);
+        ";
+
+        DatabaseConnection::runPreparedQuery($query, [
+            $this->leerlingId,
+            $this->beoordelingId,
+            $this->cijfer,
+            $this->opmerkingDocent ?? "",
+            $this->datumToetsGemaakt
+        ], ["i", "i", "d", "s", "s"]);
     }
 
     public static function getAllByKlasId($klasId){

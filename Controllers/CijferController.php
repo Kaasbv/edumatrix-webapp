@@ -37,13 +37,13 @@
         $cijferModel = new CijferModel($_POST ["leerlingId"], $_POST ["beoordelingId"], $_POST ["cijfer"]);
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
         $cijferModel->datumToetsGemaakt = $_POST ["datum"];
-        $cijferModel->save();
+        $cijferModel->create();
       }else if(isset($_POST ["cijferId"])){
         $cijferModel = CijferModel::getById($_POST["cijferId"]);
         $cijferModel->cijfer = $_POST ["cijfer"];
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
         $cijferModel->datumToetsGemaakt = $_POST ["datum"];
-        $cijferModel->save();
+        $cijferModel->update();
       }
 
       $this->redirect("/cijfer/klas?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
