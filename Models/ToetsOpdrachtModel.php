@@ -1,41 +1,41 @@
 <?php
 
-class BeoordelingModel extends EmptyModel {
-    public int $id;
-    public string $klasId;
+class ToetsOpdrachtModel extends EmptyModel {
+    public int $toetsopdrachtId;
+    public string $klasNaam;
     public string $naam;
     public string $datum;
     public string $beschrijving;
     public string $opmerkingDocent;
     protected string $type;
 
-    public function __construct($klasId, $naam, $datum, $beschrijving, $type){
-        $this->klasId = $klasId;
+    public function __construct($klasNaam, $naam, $datum, $beschrijving, $type){
+        $this->klasNaam = $klasNaam;
         $this->naam = $naam;
         $this->datum = $datum;
         $this->beschrijving = $beschrijving;
         $this->type = $type;
     }
 
-    public static function getAllByKlasId($klasId){
+    public static function getAllByKlasNaam($klasNaam){
         $query = "
-            SELECT * FROM BeoordelingModel
-            WHERE KLAS_ID = ?
+            SELECT * FROM ToetsOpdracht
+            WHERE KLAS_NAAM = ?
         ";
 
-        $data = DatabaseConnection::runPreparedQuery($query, [$klasId], ["i"]);
+        $data = DatabaseConnection::runPreparedQuery($query, [$klasNaam], ["s"]);
 
         $objectArray = [];
         foreach ($data as $row) {
-            $object = new BeoordelingModel(
-                $row["KLAS_ID"],
+            $object = new ToetsOpdrachtModel(
+                $row["KLAS_NAAM"],
                 $row["NAAM"],
                 $row["DATUM"],
                 $row["BESCHRIJVING"],
                 $row["TYPE"]
             );
     
-            $object->id = $row["ID"];
+            $object->toetsopdrachtId = $row["TOETSOPDRACHT_ID"];
             $object->opmerkingDocent = $row["OPMERKING_DOCENT"] ?? "";
             $objectArray[] = $object;
         }

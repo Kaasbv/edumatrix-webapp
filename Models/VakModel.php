@@ -1,28 +1,28 @@
 <?php
 class VakModel extends EmptyModel {
-  public int $id;
+  public string $vakCode;
   public string $naam;
   public string $niveau;
   public int $leerjaar;
 
-  public function __construct($vakId, $naam, $leerjaar, $niveau){
-    $this->vakId = $vakId;
+  public function __construct($vakCode, $naam, $leerjaar, $niveau){
+    $this->vakCode = $vakCode;
     $this->naam = $naam;
     $this->leerjaar = $leerjaar;
     $this->niveau = $niveau;
   }
 
 
-  public static function getByVakId($vakId){
+  public static function getByVakCode($vakCode){
     $query = "
-        SELECT * FROM VakModel vm
-        WHERE ID = ?
+        SELECT * FROM Vak vm
+        WHERE VAK_CODE = ?
     ";
 
-    [$data] = DatabaseConnection::runPreparedQuery($query, [$vakId], ["i"]);
+    [$data] = DatabaseConnection::runPreparedQuery($query, [$vakCode], ["s"]);
 
     $object = new VakModel(
-      $data["ID"],
+      $data["VAK_CODE"],
       $data["NAAM"],
       $data["LEERJAAR"],
       $data["NIVEAU"]

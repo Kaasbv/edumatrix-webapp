@@ -1,97 +1,98 @@
 <?php
 
 class CijferModel extends EmptyModel {
-    public $id;
-    public $leerlingId;
-    public $beoordelingId;
+    public $toetsOpdrachtId;
+    public $leerlingNummer;
     public $opmerkingDocent;
     public $cijfer;
     public $datumIngevoerd;
     public $datumToetsGemaakt;
 
-    function __construct($leerlingId, $beoordelingId, $cijfer){
-        $this->leerlingId = $leerlingId;
-        $this->beoordelingId = $beoordelingId;
+    function __construct($leerlingNummer, $toetsOpdrachtId, $cijfer){
+        $this->leerlingNummer = $leerlingNummer;
+        $this->toetsOpdrachtId = $toetsOpdrachtId;
         $this->cijfer = $cijfer;
     }
 
-    public static function getById($id){
+    public static function getByIds($leerlingId, $toetsOpdrachtId){
         $query = "
-            SELECT * FROM CijferModel cm
-            WHERE ID = ?
+            SELECT * FROM Cijfer cm
+            WHERE TOETSOPDRACHT_ID = ? AND LEERLING_NUMMER = ?
         ";
 
-        [$data] = DatabaseConnection::runPreparedQuery($query, [$id], ["i"]);
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$toetsOpdrachtId, $leerlingId], ["i", "i"]);
 
         $object = new CijferModel(
-            $data["LEERLING_ID"],
-            $data["BEOORDELING_ID"],
+            $data["LEERLING_NUMMER"],
+            $data["TOETSOPDRACHT_ID"],
             $data["CIJFER"],
         );
 
-        $object->id = $data["ID"];
         $object->opmerkingDocent = $data["OPMERKING_DOCENT"];
         $object->datumIngevoerd = $data["DATUM_INGEVOERD"] ?? "";
         $object->datumToetsGemaakt = $data["DATUM_TOETS_GEMAAKT"] ?? "";
-
 
         return $object;
     }
 
     public function update(){
         $query = "
-            UPDATE CijferModel
+            UPDATE Cijfer
             SET
                 CIJFER=?,
                 OPMERKING_DOCENT=?,
                 DATUM_TOETS_GEMAAKT=?
-            WHERE ID=?;
+            WHERE TOETSOPDRACHT_ID = ? AND LEERLING_NUMMER = ?
         ";
 
-        DatabaseConnection::runPreparedQuery($query, [$this->cijfer, $this->opmerkingDocent ?? "", $this->datumToetsGemaakt, $this->id], ["d", "s", "s", "i"]);
+        DatabaseConnection::runPreparedQuery($query, [
+            $this->cijfer,
+            $this->opmerkingDocent ?? "",
+            $this->datumToetsGemaakt, 
+            $this->toetsOpdrachtId,
+            $this->leerlingNummer
+        ], ["d", "s", "s", "i", "i"]);
     }
 
     public function create(){
         $query = "
-            INSERT INTO CijferModel
-            (LEERLING_ID, BEOORDELING_ID, CIJFER, OPMERKING_DOCENT, DATUM_TOETS_GEMAAKT)
+            INSERT INTO Cijfer
+            (LEERLING_NUMMER, TOETSOPDRACHT_ID, CIJFER, OPMERKING_DOCENT, DATUM_TOETS_GEMAAKT)
             VALUES(?, ?, ?, ?, ?);
         ";
 
         DatabaseConnection::runPreparedQuery($query, [
-            $this->leerlingId,
-            $this->beoordelingId,
+            $this->leerlingNummer,
+            $this->toetsOpdrachtId,
             $this->cijfer,
             $this->opmerkingDocent ?? "",
             $this->datumToetsGemaakt
         ], ["i", "i", "d", "s", "s"]);
     }
 
-    public static function getAllByKlasId($klasId){
+    public static function getAllByKlasNaam($klasnaam){
         $query = "
-            SELECT cm.* FROM CijferModel cm
-            INNER JOIN BeoordelingModel bm on bm.ID = cm.BEOORDELING_ID 
-            WHERE bm.KLAS_ID = ?
+            SELECT cm.* FROM Cijfer cm
+            INNER JOIN ToetsOpdracht tom on tom.TOETSOPDRACHT_ID = cm.TOETSOPDRACHT_ID
+            WHERE tom.KLAS_NAAM = ?
         ";
 
-        $data = DatabaseConnection::runPreparedQuery($query, [$klasId], ["i"]);
+        $data = DatabaseConnection::runPreparedQuery($query, [$klasnaam], ["s"]);
 
         $objectArray = [];
         foreach ($data as $row) {
             $object = new CijferModel(
-                $row["LEERLING_ID"],
-                $row["BEOORDELING_ID"],
+                $row["LEERLING_NUMMER"],
+                $row["TOETSOPDRACHT_ID"],
                 $row["CIJFER"],
             );
-
-            $object->id = $row["ID"];
+;
             $object->opmerkingDocent = $row["OPMERKING_DOCENT"];
             $object->datumIngevoerd = $row["DATUM_INGEVOERD"] ?? "";
             $object->datumToetsGemaakt = $row["DATUM_TOETS_GEMAAKT"] ?? "";
 
             $objectArray[] = $object;
         }
-
 
         return $objectArray;
     }

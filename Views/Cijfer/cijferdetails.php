@@ -9,19 +9,20 @@
     <label for="opmerkingen">Opmerkingen:</label>
     <textarea name="opmerkingen" id="opmerkingen"><?= $context->cijfer->opmerkingDocent ?? "" ?></textarea>
     <br>
-    <?php if (isset($_GET["leerlingId"])){ ?>
-        <input type="hidden"  name="leerlingId" value="<?= $_GET["leerlingId"]?>">
+    <?php if (isset($_GET["leerlingNummer"])){ ?>
+        <input type="hidden"  name="leerlingNummer" value="<?= $_GET["leerlingNummer"]?>">
     <?php } ?>
     
-    <?php if (isset($_GET["beoordelingId"])){  ?>
-        <input type="hidden"  name="beoordelingId" value="<?= $_GET["beoordelingId"]?>">
+    <?php if (isset($_GET["toetsOpdrachtId"])){  ?>
+        <input type="hidden"  name="toetsOpdrachtId" value="<?= $_GET["toetsOpdrachtId"]?>">
     <?php } ?>
     
-    <?php if (isset($_GET["cijferId"])){ ?>
-        <input type="hidden"  name="cijferId" value="<?= $_GET["cijferId"]?>">
+    <?php if (isset($_GET["klasNaam"])){ ?>
+        <input type="hidden"  name="klasNaam" value="<?= $_GET["klasNaam"]?>">  
     <?php } ?>
-    <?php if (isset($_GET["klasId"])){ ?>
-        <input type="hidden"  name="klasId" value="<?= $_GET["klasId"]?>">  
+
+    <?php if (!isset($context->cijfer->cijfer)){ ?>
+        <input type="hidden"  name="new" value="1">
     <?php } ?>
     <input type="submit" value="Toepassen">
   </form>

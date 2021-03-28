@@ -4,28 +4,28 @@
       //Authorization
       $this->checkAuthorization(["docent"]);
 
-      if(!isset($_GET["klasId"])){
-        throw new Exception("KlasId niet gespecificeerd", 400);
+      if(!isset($_GET["klasNaam"])){
+        throw new Exception("klasNaam niet gespecificeerd", 400);
       }
       //Verkrijg klas
-      $klasId = $_GET["klasId"];
-      $klas = KlasModel::getByKlasId($klasId);
+      $klasNaam = $_GET["klasNaam"];
+      $klas = KlasModel::getByKlasNaam($klasNaam);
 
       if(!$klas){//Error als klas niet bestaat
         throw new Exception("Klas niet gevonden", 404);
       }
 
       //Verkrijg alle benodigde data
-      $beoordelingen = $klas->getBeoordelingen();
+      $toetsOpdrachten = $klas->getToetsOpdrachten();
       $cijfers = $klas->getCijfers();
       $leerlingen = $klas->getLeerlingen();
 
       //Render view
       $this->renderView("Cijfer/cijferoverzichtklas", [
-        "beoordelingen" => $beoordelingen,
+        "toetsOpdrachten" => $toetsOpdrachten,
         "cijfers" => $cijfers,
         "leerlingen" => $leerlingen,
-        "klasId" => $klas->id
+        "klasNaam" => $klas->klasNaam
       ]);
     }
 
@@ -33,20 +33,20 @@
       //Authorization
       $this->checkAuthorization(["docent"]);
 
-      if(isset($_POST ["beoordelingId"]) && isset($_POST ["leerlingId"])){
-        $cijferModel = new CijferModel($_POST ["leerlingId"], $_POST ["beoordelingId"], $_POST ["cijfer"]);
+      if(isset($_POST["new"])){
+        $cijferModel = new CijferModel($_POST ["leerlingNummer"], $_POST ["toetsOpdrachtId"], $_POST ["cijfer"]);
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
         $cijferModel->datumToetsGemaakt = $_POST ["datum"];
         $cijferModel->create();
-      }else if(isset($_POST ["cijferId"])){
-        $cijferModel = CijferModel::getById($_POST["cijferId"]);
+      }else{
+        $cijferModel = CijferModel::getByIds($_POST ["leerlingNummer"], $_POST ["toetsOpdrachtId"]);
         $cijferModel->cijfer = $_POST ["cijfer"];
         $cijferModel->opmerkingDocent = $_POST ["opmerkingen"];
         $cijferModel->datumToetsGemaakt = $_POST ["datum"];
         $cijferModel->update();
       }
 
-      $this->redirect("/cijfer/klas?klasId=" . $_POST["klasId"] . "&cijferId=" . $cijferModel->id);
+      $this->redirect("/cijfer/klas?klasNaam=" . $_POST["klasNaam"] . "&leerlingNummer=" . $cijferModel->leerlingNummer . "&toetsOpdrachtId=" . $cijferModel->toetsOpdrachtId);
     }
 
     public function actionKlassenoverzicht(){

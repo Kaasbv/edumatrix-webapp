@@ -1,7 +1,6 @@
 <?php
 
 class GebruikerModel extends EmptyModel {
-    protected int $id;
     public string $email;
     public string $voornaam;
     protected string $tussenvoegsel;
@@ -12,33 +11,14 @@ class GebruikerModel extends EmptyModel {
     protected string $lastLoggedIn;
     protected string $pfImgPath;
 
-    public static function getById($id){
-        $query = "
-            SELECT * FROM GebruikerModel vm
-            WHERE ID = ?
-        ";
-
-        [$data] = DatabaseConnection::runPreparedQuery($query, [$id], ["i"]);
-
-        $object = new GebruikerModel(
-            $data["VOORNAAM"],
-            $data["TUSSENVOEGSEL"],
-            $data["ACHTERNAAM"]
-        );
-
-        self::fillObject($object, $data);
-
-        return $object;
-    }
-
 
     public static function getByEmail($email){
         $query = "
-            SELECT * FROM GebruikerModel vm
+            SELECT * FROM Gebruiker vm
             WHERE EMAIL = ?
         ";
 
-        [$data] = DatabaseConnection::runPreparedQuery($query, [$email], ["i"]);
+        [$data] = DatabaseConnection::runPreparedQuery($query, [$email], ["s"]);
 
         $object = new GebruikerModel(
             $data["VOORNAAM"],
@@ -68,13 +48,6 @@ class GebruikerModel extends EmptyModel {
         $this->achternaam = $achternaam;
     }
 
-
-    //password hash + salt
-    public function changePassword($password){
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
-        $this->save();
-    }
-
     //password verifiëren
     public function checkPassword($password){
         $hash = $this->password;
@@ -92,7 +65,7 @@ class GebruikerModel extends EmptyModel {
             return false;
         }
         if ($user->checkPassword($password)){
-            Session::saveUserId($user->id);
+            Session::saveEmail($user->email);
             return true;
         }
         else{
@@ -102,9 +75,9 @@ class GebruikerModel extends EmptyModel {
 
     public function getLessen($begintijd, $eindtijd) {
         if($this->relatieRol === "leerling"){
-            $lessen = LesModel::getPeriodeLeerling($this->id, $begintijd, $eindtijd);
+            $lessen = LesModel::getPeriodeLeerling($this->leerlingNummer, $begintijd, $eindtijd);
         } else if($this->relatieRol === "docent"){
-            $lessen = LesModel::getPeriodeDocent($this->id, $begintijd, $eindtijd);
+            $lessen = LesModel::getPeriodeDocent($this->docentCode, $begintijd, $eindtijd);
         }
         return $lessen;
     }

@@ -1,45 +1,41 @@
 <?php
 class LeerlingModel extends GebruikerModel {
-  public int $id;
-  public string $leerlingnummer;
-  public int $gebruikerId;
+  public int $leerlingnummer;
+  public string $gebruikerEmail;
   public string $niveau;
   public int $leerjaar;
-  public int $roosterId;
 
-  public function __construct($leerlingnummer, $gebruikerId, $niveau, $leerjaar){
-    $this->leerlingnummer = $leerlingnummer;
+  public function __construct($leerlingNummer, $gebruikerId, $niveau, $leerjaar){
+    $this->leerlingNummer = $leerlingNummer;
     $this->gebruikerId = $gebruikerId;
     $this->niveau = $niveau;
     $this->leerjaar = $leerjaar;
   }
 
-  public static function getAllByKlasId($klasId){
+  public static function getAllByKlasNaam($klasNaam){
     $query = "
-        SELECT gm.*, lm.* FROM LeerlingModel lm
-        INNER JOIN LeerlingKlas lk on lk.LEERLING_ID = lm.ID
-        LEFT JOIN GebruikerModel gm on gm.ID = lm.GEBRUIKER_ID
-        WHERE lk.KLAS_ID = ?
-        GROUP BY lm.id
+        SELECT gm.*, lm.* FROM Leerling lm
+        INNER JOIN LeerlingKlas lk on lk.LEERLING_NUMMER = lm.LEERLING_NUMMER
+        LEFT JOIN Gebruiker gm on gm.EMAIL = lm.GEBRUIKER_EMAIL
+        WHERE lk.KLAS_NAAM = ?
+        GROUP BY lm.LEERLING_NUMMER
     ";
 
-    $data = DatabaseConnection::runPreparedQuery($query, [$klasId], ["i"]);
+    $data = DatabaseConnection::runPreparedQuery($query, [$klasNaam], ["s"]);
 
     $objectArray = [];
     foreach ($data as $row) {
         $object = new LeerlingModel(
-            $row["LEERLINGNUMMER"],
-            $row["GEBRUIKER_ID"],
+            $row["LEERLING_NUMMER"],
+            $row["GEBRUIKER_EMAIL"],
             $row["NIVEAU"],
             $row["LEERJAAR"],
         );
-
 
         self::fillObject($object, $row);
 
         $objectArray[] = $object;
     }
-
 
     return $objectArray;
   }
